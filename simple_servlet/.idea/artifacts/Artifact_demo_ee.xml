@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Artifact_demo_ee">
+    <output-path>$PROJECT_DIR$/out/artifacts/Artifact_demo_ee</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="my_simple_practics" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="servlet-api" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
