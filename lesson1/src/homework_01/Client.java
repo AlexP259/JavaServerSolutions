@@ -36,11 +36,16 @@ public class Client {
                     answer = keyboard.readLine();
                     out.writeUTF(answer);
                     out.flush();
-                    answer = in.readUTF();
+
                     if (answer.endsWith("no")) {
                         System.out.println("\n" + answer);
+                        keyboard.close();
+                        isr.close();
+                        in.close();
+                        out.close();
                         break;
                     } else {
+                        answer = in.readUTF();
                         System.out.println("\nСервер отправил мне эту строку:\n\t" + answer);
                         System.out.println();
                     }

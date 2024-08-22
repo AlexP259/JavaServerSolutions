@@ -54,7 +54,7 @@ public class Server {
                 }
 
             } catch (Exception e) {
-                System.out.println("Исключение: " + e);
+                System.out.println("Исключениеее: " + e);
             }
         } finally {
             try{

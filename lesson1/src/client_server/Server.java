@@ -68,7 +68,6 @@ public class Server extends Thread{
             } catch (Exception e) {
                 System.out.println("Исключение: " + e);
             }
-
         } finally {
             try{
                 if(srvSocket != null){
