@@ -32,6 +32,7 @@ public class Main {
 
             /* Создадим таблицу cars */
             String createTableCars = "CREATE TABLE IF NOT EXISTS cars (" +
+                    "id INT PRIMARY KEY AUTO_INCREMENT," +
                     "maker VARCHAR(50) NOT NULL," +
                     "model VARCHAR(50) NOT NULL," +
                     "engine_capacity VARCHAR(50) NOT NULL," +
@@ -42,7 +43,7 @@ public class Main {
             System.out.println("Таблица cars создана");
 
             /* Заполним таблицу cars */
-            String fillTableCars = "INSERT INTO cars VALUES " +
+            String fillTableCars = "INSERT INTO cars (maker, model, engine_capacity, year, color, type) VALUES " +
                     "('BMW', '1-Series E82', '2 литра', 2010, 'Красный', 'хэтчбек')," +
                     "('BMW', '7-Series E23', '3.2 литра', 1983, 'Черный', 'седан')," +
                     "('BMW', 'i7 xDrive60', '4.4 литра', 2022, 'Белый', 'седан')," +
@@ -53,6 +54,9 @@ public class Main {
             statement.executeUpdate(fillTableCars);
             System.out.println("Таблица cars заполнена");
 
+            /* Закрываем интерфейс statement и соединение с СУБД */
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
