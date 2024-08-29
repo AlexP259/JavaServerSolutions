@@ -14,10 +14,10 @@ public class Main2 {
         * поэтому обходимся ато-регистрацией драйвера в момент создания подключения */
 
         try (Connection connection = DriverManager.getConnection(URL_BD, USERNAME, PASSWORD);
-        Statement statement = connection.createStatement()) {
+        Statement statement = connection.createStatement();
+        Scanner input = new Scanner(System.in)) {
             while(true){
                 System.out.println("База данных " + connection.getCatalog() + "\nДоступные операции:");
-                Scanner input = new Scanner(System.in);
                 System.out.println("1. Отобразить все содержимое таблицы с автомобилями");
                 System.out.println("2. Показать всех производителей автомобилей");
                 System.out.println("3. Показать все автомобили конкретного года выпуска");
