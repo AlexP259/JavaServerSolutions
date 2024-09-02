@@ -57,14 +57,13 @@ public class User {
         }
     }
 
-    /* Проверка на существующего пользователя (если такой email уже используется, занесен в таблицу) */
+    /* Проверка на существующего пользователя (если такой email уже используется, занесен в таблицу user) */
     public boolean userExists(String email){
         String query = "SELECT * FROM user WHERE email = ?";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-//            preparedStatement.close();
             if(resultSet.next()){
                 return true;
             }
@@ -73,4 +72,38 @@ public class User {
         }
         return false;
     }
+
+    /* Авторизация */
+    public String login(){
+        input.nextLine();
+        System.out.print("\nEmail: ");
+        String email = input.nextLine();
+        System.out.print("Пароль: ");
+        String password = input.nextLine();
+        String login_query = "SELECT * FROM user WHERE email = ? AND password = ?";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(login_query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return email;
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+

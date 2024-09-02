@@ -35,6 +35,8 @@ public class CreateHospitalDB {
             statement.addBatch("CREATE TABLE IF NOT EXISTS Patients(" +
                     "patient_id INT AUTO_INCREMENT," +
                     "full_name VARCHAR(255) NOT NULL," +
+                    "email VARCHAR(255) NOT NULL," +
+                    "phone_number BIGINT NOT NULL," +
                     "age INT NOT NULL," +
                     "PRIMARY KEY (patient_id))");
             statement.addBatch( "CREATE TABLE IF NOT EXISTS Appointment(" +
