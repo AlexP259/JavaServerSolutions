@@ -34,6 +34,7 @@ public class DeleteServlet extends HttpServlet {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql:///book", "root", "Qwerty123!");
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
+
             int row = preparedStatement.executeUpdate();
             if(row == 1){
                 out.println("<h2>Удаление прошло успешно</h2>");

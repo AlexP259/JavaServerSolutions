@@ -28,6 +28,7 @@ public class BookListServlet extends HttpServlet {
         out.println("<html><head><link rel='stylesheet' href='css/style.css'></head>");
         try (Connection connection = DriverManager.getConnection("jdbc:mysql:///book", "root", "Qwerty123!");
              PreparedStatement preparedStatement = connection.prepareStatement(query)){
+
             out.println("<body><div class='list'>");
             out.println("<h1>Book List</h1>");
             out.println("<table><tr>");

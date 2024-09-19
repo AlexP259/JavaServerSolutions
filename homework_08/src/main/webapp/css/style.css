@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    height: 100%;
+}
+
+
+header{
+    background: #E0FFFF;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #a8d5d5;
+}
+
+footer{
+    background: #E0FFFF;
+    border-top: 1px solid #a8d5d5;
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*width: 100%;*/
+    padding: 20px;
+}
+
+.container{
+    font-family: Arial, Verdana, sans-serif;
+    height: 100%;
+    text-align: center;
+}
+
+.wrap{
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.wrap p{
+    text-align: left;
+}
+
+.form-notebook-config{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-notebook-config__element{
+    display: flex;
+    text-align: left;
+}
+
+.form-notebook-config__element div{
+    width: 200px;
+    padding: 5px 0;
+}
+
+.height{
+    /* 100% - это сколько от высоты родителя займет блок с классом height. Из этого значения мы
+    вычитаем высоту элемента панель навигации, высоту элемента футер, margin в 100px у класса form. Таким образом
+    высчитываем сколько минимум будет занимать элемент с классом height. Это чтобы футер оставался внизу страницы  */
+    /*min-height: calc(100% - 64px - 80px - 100px);*/
+    min-height: calc(100% - 59px - 79px);
+}

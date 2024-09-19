@@ -1,0 +1,204 @@
+.main{
+    background: #005577;
+}
+
+
+/*.navk{                            можем закрепить панель навигации
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}*/
+
+.wrap{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    list-style: none;
+    text-transform: uppercase;
+}
+
+.logo{
+    margin-right: 50%;
+}
+
+.menu a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+.menu a:hover{
+    color: aqua;
+}
+
+
+/* carousel */
+
+/*.carousel{                если закрепляем панель навигации, надо сдвинуть вниз карусель
+    padding-top: 64px;
+}*/
+
+.carousel-item{
+    height: 500px;
+}
+
+.d-block{
+    background-size: cover;
+}
+
+
+/* advantages */
+
+.advantages{
+    margin: 60px 0;
+}
+
+.advantages__block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.advantages__element-left{
+    flex-basis: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.advantages__element-right{
+    flex-basis: 30%;
+}
+
+.advantages__element-right img{
+    width: 100%;
+    box-shadow: 0 0 6px 2px #005577;
+}
+
+.advantages__element-left div{
+    /*width: 44%;*/
+    flex-basis: 44%;
+    box-shadow: 0 0 6px 2px #005577;
+    padding: 30px 20px 20px;
+    margin: 20px 0;
+}
+
+h2{
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+
+
+/* team */
+
+.team{
+    padding: 60px 0;
+    border-top: 1px solid #999;
+}
+
+.team__block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.team__element{
+    flex-basis: 24%;
+    box-shadow: 0 0 6px 2px #005577;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.team__element img{
+    width: 100%;
+}
+
+.team__element h3, .team__element p{
+    padding: 20px;
+}
+
+
+
+/* footer */
+
+footer{
+    background: #005577;
+    color: #FFFFFF;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 30px 0 10px;
+}
+
+
+
+/* height */
+
+.height{
+    /* 100% - это сколько от высоты родителя займет блок с классом height. Из этого значения мы
+    вычитаем высоту элемента панель навигации, высоту элемента футер, margin в 100px у класса form. Таким образом
+    высчитываем сколько минимум будет занимать элемент с классом height. Это чтобы футер оставался внизу страницы  */
+    min-height: calc(100% - 64px - 80px - 100px);
+}
+
+.form{
+    width: 600px;
+    margin: 100px auto;
+}
+
+.button{
+    background-color: #99ccdd !important;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.center{
+    text-align: center;
+}
+
+
+
+/* admin */
+
+.menu button{
+    background: #005577;
+    border: none;
+}
+
+.menu button:hover, show{
+    color: #00ddff;
+    background: #005577 !important;
+}
+
+.dropdown-menu a{
+    color: #000000;
+    background: #FFFFFF;
+}
+
+.dropdown-menu a:hover{
+    color: #000000;
+    background: #00ddff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
