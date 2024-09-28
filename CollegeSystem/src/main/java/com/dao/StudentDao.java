@@ -4,6 +4,7 @@ import com.entity.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class StudentDao {
     private Connection conn;
@@ -31,6 +32,30 @@ public class StudentDao {
 
         return flag;
     }
+
+    public Student login(String email, String password){
+        Student student = null;
+
+        try{
+            String sql = "SELECT * FROM students_dtls WHERE email = ? AND password = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                student = new Student();
+                student.setId(resultSet.getInt(1));
+                student.setName(resultSet.getString(2));
+                student.setEmail(resultSet.getString(3));
+                student.setPassword(resultSet.getString(4));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return student;
+    }
+
 }
 
 

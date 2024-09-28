@@ -23,6 +23,7 @@ public class Student {
         this.id = id;
     }
 
+
     public String getName() {
         return name;
     }
@@ -30,12 +31,14 @@ public class Student {
         this.name = name;
     }
 
+
     public String getEmail() {
         return email;
     }
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public String getPassword() {
         return password;

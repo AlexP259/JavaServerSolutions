@@ -93,6 +93,7 @@
 h2{
     text-align: center;
     padding-bottom: 40px;
+    padding-top: 40px;
 }
 
 
@@ -172,10 +173,10 @@ footer{
     border: none;
 }
 
-.menu button:hover, show{
-    color: #00ddff;
-    background: #005577 !important;
-}
+/*.menu button:hover, .show{*/
+/*    color: #00ddff;*/
+/*    background: #005577 !important;*/
+/*}*/
 
 .dropdown-menu a{
     color: #000000;

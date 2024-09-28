@@ -121,6 +121,13 @@
     padding: 20px;
 }
 
+h2{
+    text-align: center;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+
 
 /* footer */
 
@@ -170,7 +177,7 @@ footer{
     color: #646464;
 }
 
-.menu button:hover, .show{
+.menu button:hover{
     color: #00caca;
     background: #d5efa5 !important;
 }
@@ -183,6 +190,52 @@ footer{
     color: #646464;
     background: #00caca;
 }
+
+.admin{
+    margin: 60px 0;
+}
+
+.admin__block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.admin__element{
+    flex-basis: 24%;
+    box-shadow: 0 0 6px 2px #646464;
+    padding: 30px;
+}
+
+.admin__element img{
+    width: 100%;
+}
+
+
+.admin__element h3, .admin__element p{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.admin__element p{
+    font-size: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
