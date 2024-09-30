@@ -217,13 +217,28 @@ footer{
     font-size: 24px;
 }
 
+.btn-doctor{
+    position: absolute;
+    bottom: 20px;
+}
 
+.doctor__block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
+.doctor__element{
+    flex-basis: 24%;
+    box-shadow: 0 0 6px 2px #005577;
+    padding: 60px 60px 50px;
+    margin: 30px;
+    text-align: center;
+}
 
-
-
-
-
+.doctor__element h4{
+    color: #005577;
+}
 
 
 

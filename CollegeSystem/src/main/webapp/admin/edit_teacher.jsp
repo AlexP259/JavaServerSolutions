@@ -18,40 +18,60 @@
     <div class="wrap">
 
 
-        <button class="btn btn-info btn-teacher" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-            Добавить преподавателя
-        </button>
+        <%--        <button class="btn btn-info btn-teacher" type="button" data-bs-toggle="offcanvas"--%>
+        <%--                data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">--%>
+        <%--            Добавить преподавателя--%>
+        <%--        </button>--%>
 
         <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
              aria-labelledby="staticBackdropLabel">
             <div class="offcanvas-header">
-                <h3 class="offcanvas-title" id="staticBackdropLabel">Добавить преподавателя</h3>
+                <h3 class="offcanvas-title" id="staticBackdropLabel">Редактировать преподавателя</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <div>
 
-                    <form action="../addTeacher" method="post">
+                    <c:if test="${not empty errorMsg}">
+                        <p class="center text-danger fs-3">${errorMsg}</p>
+                        <c:remove var="errorMsg"/>
+                    </c:if>
+
+                    <c:if test="${not empty succMsg}">
+                        <p class="center text-success fs-3">${succMsg}</p>
+                        <c:remove var="succMsg"/>
+                    </c:if>
+
+                    <%
+                        int id = Integer.parseInt(request.getParameter("id"));
+                        TeacherDao daoEdit = new TeacherDao(DBConnect.getConn());
+                        Teacher teach = daoEdit.getTeacherById(id);
+                    %>
+
+                    <form action="../updateTeacher" method="post">
                         <div class="mb-3">
                             <label for="full">Полное имя</label>
-                            <input type="text" required name="full_name" id="full" class="form-control">
+                            <input type="text" required name="full_name" id="full" class="form-control"
+                                   value="<%= teach.getFullName() %>">
                         </div>
 
                         <div class="mb-3">
                             <label for="dob">Дата рождения</label>
-                            <input type="date" required name="dob" id="dob" class="form-control">
+                            <input type="date" required name="dob" id="dob" class="form-control"
+                                   value="<%= teach.getDob() %>">
                         </div>
 
                         <div class="mb-3">
                             <label for="qualit">Квалификация</label>
-                            <input type="text" required name="qualification" id="qualit" class="form-control">
+                            <input type="text" required name="qualification" id="qualit" class="form-control"
+                                   value="<%= teach.getQualification() %>">
                         </div>
 
                         <div class="mb-3">
                             <label for="special">Специальность</label>
-                            <select type="text" required name="spec" id="special" class="form-control">
-                                <option value="" selected hidden>-- Выбор специальности --</option>
+                            <select required name="spec" id="special" class="form-control">
+                                <option><%= teach.getSpeciality() %>
+                                </option>
                                 <%
                                     SpecialityDao dao = new SpecialityDao(DBConnect.getConn());
                                     List<Speciality> list = dao.getAllSpeciality();
@@ -67,35 +87,30 @@
 
                         <div class="mb-3">
                             <label for="email">Email</label>
-                            <input type="email" required name="email" id="email" class="form-control">
+                            <input type="email" required name="email" id="email" class="form-control"
+                                   value="<%= teach.getEmail() %>">
                         </div>
 
                         <div class="mb-3">
                             <label for="tel">Телефон</label>
-                            <input type="tel" required name="mobno" id="tel" class="form-control">
+                            <input type="tel" required name="mobno" id="tel" class="form-control"
+                                   value="<%= teach.getMobNo() %>">
                         </div>
 
                         <div class="mb-3">
                             <label for="psw">Пароль</label>
-                            <input type="password" required name="password" id="psw" class="form-control">
+                            <input type="password" required name="password" id="psw" class="form-control"
+                                   value="<%= teach.getPassword() %>">
                         </div>
 
-                        <button class="btn btn-info">Отправить</button>
+                        <input type="hidden" name="id" value="<%= teach.getId() %>">
+
+                        <button class="btn btn-info">Обновить</button>
 
                     </form>
                 </div>
             </div>
         </div>
-
-        <c:if test="${not empty errorMsg}">
-            <p class="center text-danger fs-3">${errorMsg}</p>
-            <c:remove var="errorMsg"/>
-        </c:if>
-
-        <c:if test="${not empty succMsg}">
-            <p class="center text-success fs-3">${succMsg}</p>
-            <c:remove var="succMsg"/>
-        </c:if>
 
         <h2>Данные преподавателей</h2>
         <table class="table">
@@ -114,12 +129,18 @@
                 for (Teacher t : list2) {
             %>
             <tr>
-                <td><%= t.getFullName() %></td>
-                <td><%= t.getDob() %></td>
-                <td><%= t.getQualification() %></td>
-                <td><%= t.getSpeciality() %></td>
-                <td><%= t.getEmail() %></td>
-                <td><%= t.getMobNo() %></td>
+                <td><%= t.getFullName() %>
+                </td>
+                <td><%= t.getDob() %>
+                </td>
+                <td><%= t.getQualification() %>
+                </td>
+                <td><%= t.getSpeciality() %>
+                </td>
+                <td><%= t.getEmail() %>
+                </td>
+                <td><%= t.getMobNo() %>
+                </td>
                 <td>
                     <a href="edit_teacher.jsp?id=<%= t.getId() %>" class="btn btn-sm btn-info">Изменить</a>
                     <a href="../deleteTeacher?id=<%= t.getId() %>" class="btn btn-sm btn-danger">Удалить</a>
