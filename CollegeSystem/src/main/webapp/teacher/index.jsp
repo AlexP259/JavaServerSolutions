@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <title>Title</title>
@@ -7,6 +8,10 @@
 <body>
 
 <jsp:include page="navigation_menu.jsp" />
+
+<c:if test="${empty teacherObj}">
+    <c:redirect url="../teacher_login.jsp"></c:redirect>
+</c:if>
 
 <section class="teacher">
     <div class="wrap">

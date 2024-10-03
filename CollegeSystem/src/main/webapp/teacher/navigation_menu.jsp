@@ -3,7 +3,7 @@
     <div class="wrap">
         <ul class="menu">
             <li class="logo"><a href="index.jsp">Главная</a></li>
-            <li><a href="student.jsp">Студент</a></li>
+            <li><a href="my_student.jsp">Студент</a></li>
             <li>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

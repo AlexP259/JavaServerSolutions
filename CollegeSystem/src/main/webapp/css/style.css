@@ -233,11 +233,17 @@ footer{
 }
 
 .teacher__element{
-    flex-basis: 24%;
+    min-width: 40%;
+    flex-basis: 25%;
     box-shadow: 0 0 6px 2px #005577;
     padding: 60px 60px 50px;
     margin: 30px;
     text-align: center;
+}
+
+.teacher__element img{
+    width: 100%;
+    height: auto;
 }
 
 .teacher__element h4{

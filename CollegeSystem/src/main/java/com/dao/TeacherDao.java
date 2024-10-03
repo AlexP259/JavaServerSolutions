@@ -124,7 +124,7 @@ public class TeacherDao {
     }
 
 
-    public boolean deleteDoctor(int id){
+    public boolean deleteTeacher(int id){
         boolean flag = false;
 
         try{

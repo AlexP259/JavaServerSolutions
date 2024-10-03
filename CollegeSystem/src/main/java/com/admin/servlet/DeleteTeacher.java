@@ -19,7 +19,7 @@ public class DeleteTeacher extends HttpServlet {
         TeacherDao dao = new TeacherDao(DBConnect.getConn());
         HttpSession session = req.getSession();
 
-        if(dao.deleteDoctor(id)){
+        if(dao.deleteTeacher(id)){
             session.setAttribute("succMsg", "Преподаватель удален успешно");
             resp.sendRedirect("admin/teacher.jsp");
         } else {
