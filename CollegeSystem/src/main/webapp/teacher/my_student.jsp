@@ -17,18 +17,18 @@
     <c:redirect url="../teacher_login.jsp"></c:redirect>
 </c:if>
 
-<div class="appointment">
+<div class="teacher">
     <div class="wrap">
         <h2>Просмотр домашней работы</h2>
 
         <c:if test="${not empty succMsg}">
             <p class="center text-success fs-3">${succMsg}</p>
-            <c:remove var="succMsg" scope="session" />
+            <c:remove var="succMsg" scope="session"/>
         </c:if>
 
         <c:if test="${not empty errorMsg}">
             <p class="center text-danger fs-3">${errorMsg}</p>
-            <c:remove var="errorMsg" scope="session" />
+            <c:remove var="errorMsg" scope="session"/>
         </c:if>
 
         <table class="table">
@@ -51,15 +51,32 @@
             %>
 
             <tr>
-                <td><%= homework.getFullName() %></td>
-                <td><%= homework.getGroup() %></td>
-                <td><%= homework.getEmail() %></td>
-                <td><%= homework.getPhone() %></td>
-                <td><%= homework.getHomeworkDate() %></td>
-                <td><%= homework.getHomeworkFile() %></td>
-                <td><%= homework.getStatus() %></td>
+                <td><%= homework.getFullName() %>
+                </td>
+                <td><%= homework.getGroup() %>
+                </td>
+                <td><%= homework.getEmail() %>
+                </td>
+                <td><%= homework.getPhone() %>
+                </td>
+                <td><%= homework.getHomeworkDate() %>
+                </td>
+                <td><%= homework.getHomeworkFile() %>
+                </td>
+                <td><%= homework.getStatus() %>
+                </td>
                 <td>
-                    <a href="comment.jsp?id=<%= homework.getId() %>" class="btn btn-sm btn-info">Комментарий</a>
+                    <%
+                        if ("В ожидании".equals(homework.getStatus())) {
+                    %>
+                    <a href="comments.jsp?id=<%= homework.getId() %>" class="btn btn-sm btn-info">Комментарий</a>
+                    <%
+                        } else {
+                    %>
+                    <a href="#" class="btn btn-sm btn-info disabled">Комментарий</a>
+                    <%
+                        }
+                    %>
                 </td>
             </tr>
 

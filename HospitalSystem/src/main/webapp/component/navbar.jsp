@@ -23,7 +23,7 @@
                             ${userObj.name}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Изменить пароль</a></li>
+                            <li><a class="dropdown-item" href="../change_password.jsp">Изменить пароль</a></li>
                             <li><a class="dropdown-item" href="../userLogout">Выход</a></li>
                         </ul>
                     </div>

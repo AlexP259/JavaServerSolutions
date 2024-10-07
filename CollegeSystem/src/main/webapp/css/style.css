@@ -250,7 +250,12 @@ footer{
     color: #005577;
 }
 
-
+.but{
+    margin: 20px 0;
+    background: #e6ffbc !important;
+    width: 100%;
+    padding: 10px;
+}
 
 
 

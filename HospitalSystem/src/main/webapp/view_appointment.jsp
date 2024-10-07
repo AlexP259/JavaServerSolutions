@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.entity.Doctor" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <title>Title</title>
@@ -13,6 +14,10 @@
 </head>
 <body>
 <jsp:include page="component/navbar.jsp"/>
+
+<c:if test="${empty userObj}">
+    <c:redirect url="user_login.jsp"></c:redirect>
+</c:if>
 
 <div class="appointment">
     <div class="wrap">

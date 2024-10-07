@@ -110,6 +110,91 @@ public class AppointmentDao {
         return appointments;
     }
 
+
+    public Appointment getAppointmentById(int id) {
+        Appointment app = null;
+
+        try{
+            String sql = "SELECT * FROM appointment WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                app = new Appointment();
+                app.setId(resultSet.getInt(1));
+                app.setUserId(resultSet.getInt(2));
+                app.setFullName(resultSet.getString(3));
+                app.setGender(resultSet.getString(4));
+                app.setAge(resultSet.getString(5));
+                app.setAppointDate(resultSet.getString(6));
+                app.setEmail(resultSet.getString(7));
+                app.setPhone(resultSet.getString(8));
+                app.setDiseases(resultSet.getString(9));
+                app.setDoctorId(Integer.parseInt(resultSet.getString(10)));
+                app.setAddress(resultSet.getString(11));
+                app.setStatus(resultSet.getString(12));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return app;
+    }
+
+
+    public boolean updateCommentStatus(int id, int doctorId, String comment){
+        boolean flag = false;
+
+        try{
+            String sql = "UPDATE appointment SET status = ? WHERE id = ? AND doctor_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, comment);
+            ps.setInt(2, id);
+            ps.setInt(3, doctorId);
+            int row = ps.executeUpdate();
+
+            if(row == 1){
+                flag = true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        return flag;
+    }
+
+
+    public List<Appointment> getAllAppointments() {
+        List<Appointment> appointments = new ArrayList<>();
+        Appointment app = null;
+
+        try{
+            String sql = "SELECT * FROM appointment ORDER BY id DESC";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                app = new Appointment();
+                app.setId(resultSet.getInt(1));
+                app.setUserId(resultSet.getInt(2));
+                app.setFullName(resultSet.getString(3));
+                app.setGender(resultSet.getString(4));
+                app.setAge(resultSet.getString(5));
+                app.setAppointDate(resultSet.getString(6));
+                app.setEmail(resultSet.getString(7));
+                app.setPhone(resultSet.getString(8));
+                app.setDiseases(resultSet.getString(9));
+                app.setDoctorId(Integer.parseInt(resultSet.getString(10)));
+                app.setAddress(resultSet.getString(11));
+                app.setStatus(resultSet.getString(12));
+                appointments.add(app);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return appointments;
+    }
+
 }
 
 

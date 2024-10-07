@@ -36,7 +36,6 @@ public class UserDao {
     }
 
 
-
     public User login(String email, String password){
         User user = null;
 
@@ -58,6 +57,46 @@ public class UserDao {
         }
 
         return user;
+    }
+
+
+    public boolean checkOldPassword(int userId, String oldPassword){
+        boolean flag = false;
+
+        try{
+            String sql = "SELECT * FROM user_dtls WHERE id = ? AND password = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ps.setString(2, oldPassword);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                flag = true;
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+
+    public boolean changePassword(int userId, String newPassword){
+        boolean flag = false;
+
+        try{
+            String sql = "UPDATE user_dtls SET password = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setInt(2, userId);
+            int row = ps.executeUpdate();
+            if(row == 1){
+                flag = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return flag;
     }
 
 }

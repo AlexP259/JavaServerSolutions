@@ -105,6 +105,87 @@ public class HomeworkDao {
         return homeworks;
     }
 
+
+    public Homework getHomeworkById (int id){
+        Homework hw = null;
+
+        try{
+            String sql = "SELECT * FROM homework WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                hw = new Homework();
+                hw.setId(resultSet.getInt(1));
+                hw.setStudentId(resultSet.getInt(2));
+                hw.setFullName(resultSet.getString(3));
+                hw.setGroup(resultSet.getString(4));
+                hw.setHomeworkDate(resultSet.getString(5));
+                hw.setEmail(resultSet.getString(6));
+                hw.setPhone(resultSet.getString(7));
+                hw.setHomeworkFile(resultSet.getString(8));
+                hw.setTeacherId(resultSet.getInt(9));
+                hw.setStatus(resultSet.getString(10));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return hw;
+    }
+
+
+    public boolean updateCommentStatus(int id, int teacherId, String comment){
+        boolean flag = false;
+
+        try{
+            String sql = "UPDATE homework SET status = ? WHERE id = ? AND teacher_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, comment);
+            ps.setInt(2, id);
+            ps.setInt(3, teacherId);
+            int row = ps.executeUpdate();
+
+            if(row == 1){
+                flag = true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+
+    public List<Homework> getAllHomeworks(){
+        List<Homework> homeworks = new ArrayList<>();
+        Homework hw = null;
+
+        try{
+            String sql = "SELECT * FROM homework WHERE ORDER BY id DESC";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                hw = new Homework();
+                hw.setId(resultSet.getInt(1));
+                hw.setStudentId(resultSet.getInt(2));
+                hw.setFullName(resultSet.getString(3));
+                hw.setGroup(resultSet.getString(4));
+                hw.setHomeworkDate(resultSet.getString(5));
+                hw.setEmail(resultSet.getString(6));
+                hw.setPhone(resultSet.getString(7));
+                hw.setHomeworkFile(resultSet.getString(8));
+                hw.setTeacherId(resultSet.getInt(9));
+                hw.setStatus(resultSet.getString(10));
+                homeworks.add(hw);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return homeworks;
+    }
+
 }
 
 

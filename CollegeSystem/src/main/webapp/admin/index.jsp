@@ -1,3 +1,5 @@
+<%@ page import="com.dao.TeacherDao" %>
+<%@ page import="com.db.DBConnect" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
@@ -26,21 +28,30 @@
             <c:remove var="succMsg"/>
         </c:if>
 
+        <%
+            TeacherDao dao = new TeacherDao(DBConnect.getConn());
+        %>
+
         <div class="admin__block">
             <div class="admin__element">
                 <img src="../img/prepod.jpg" alt="">
                 <h3>Преподаватель</h3>
-                <p>43</p>
+                <p><%= dao.countTeachers() %></p>
+            </div>
+            <div class="admin__element">
+                <img src="../img/homework.jpg.jpg" alt="">
+                <h3>Домашние задания</h3>
+                <p><%= dao.countHomeworks() %></p>
             </div>
             <div class="admin__element">
                 <img src="../img/student.jpg" alt="">
                 <h3>Студент</h3>
-                <p>253</p>
+                <p><%= dao.countStudents() %></p>
             </div>
             <div class="admin__element">
                 <img src="../img/laborant.jpg" alt="" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <h3>Специальность</h3>
-                <p>7</p>
+                <p><%= dao.countSpecialities() %></p>
             </div>
         </div>
     </div>

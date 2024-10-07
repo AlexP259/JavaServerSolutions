@@ -33,6 +33,7 @@ public class StudentDao {
         return flag;
     }
 
+
     public Student login(String email, String password){
         Student student = null;
 
@@ -55,6 +56,47 @@ public class StudentDao {
 
         return student;
     }
+
+
+    public boolean checkOldPassword(int studentId, String oldPassword){
+        boolean flag = false;
+
+        try{
+            String sql = "SELECT * FROM students_dtls WHERE id = ? AND password = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, studentId);
+            ps.setString(2, oldPassword);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                flag = true;
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+
+    public boolean changePassword(int studentId, String newPassword){
+        boolean flag = false;
+
+        try{
+            String sql = "UPDATE students_dtls SET password = ? WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setInt(2, studentId);
+            int row = ps.executeUpdate();
+            if(row == 1){
+                flag = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
 
 }
 

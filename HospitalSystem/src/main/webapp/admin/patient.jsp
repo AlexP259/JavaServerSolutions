@@ -1,8 +1,10 @@
-<%@ page import="com.entity.Doctor" %>
 <%@ page import="com.dao.AppointmentDao" %>
 <%@ page import="com.db.DBConnect" %>
-<%@ page import="com.entity.Appointment" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.dao.DoctorDao" %>
+<%@ page import="com.entity.Appointment" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="com.entity.Doctor" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
@@ -13,23 +15,23 @@
 <body>
 <jsp:include page="navbar.jsp"/>
 
-<c:if test="${empty doctorObj}">
-    <c:redirect url="../doctor_login.jsp"></c:redirect>
-</c:if>
+<%--<c:if test="${empty doctorObj}">--%>
+<%--    <c:redirect url="../doctor_login.jsp"></c:redirect>--%>
+<%--</c:if>--%>
 
-<div class="doctor">
+<div class="patient">
     <div class="wrap">
-        <h2>Просмотр назначения</h2>
+        <h2>Данные пациента</h2>
 
-        <c:if test="${not empty succMsg}">
-            <p class="center text-success fs-3">${succMsg}</p>
-            <c:remove var="succMsg" scope="session" />
-        </c:if>
+<%--        <c:if test="${not empty succMsg}">--%>
+<%--        <p class="center text-success fs-3">${succMsg}</p>--%>
+<%--            <c:remove var="succMsg" scope="session" />--%>
+<%--        </c:if>--%>
 
-        <c:if test="${not empty errorMsg}">
-            <p class="center text-danger fs-3">${errorMsg}</p>
-            <c:remove var="errorMsg" scope="session" />
-        </c:if>
+<%--        <c:if test="${not empty errorMsg}">--%>
+<%--        <p class="center text-danger fs-3">${errorMsg}</p>--%>
+<%--            <c:remove var="errorMsg" scope="session" />--%>
+<%--        </c:if>--%>
 
         <table class="table">
             <tr>
@@ -40,17 +42,18 @@
                 <th scope="col">Email</th>
                 <th scope="col">Телефон</th>
                 <th scope="col">Диагноз</th>
+                <th scope="col">Имя врача</th>
+                <th scope="col">Адрес</th>
                 <th scope="col">Статус</th>
-                <th scope="col">Действие</th>
             </tr>
 
             <%
-                Doctor doc = (Doctor) session.getAttribute("doctorObj");
                 AppointmentDao dao = new AppointmentDao(DBConnect.getConnection());
-                List<Appointment> list = dao.getAllAppointmentsByLoginDoctor(doc.getId());
+                DoctorDao dao2 = new DoctorDao(DBConnect.getConnection());
+                List<Appointment> list = dao.getAllAppointments();
                 for (Appointment appointment : list) {
+                    Doctor d = dao2.getDoctorById(appointment.getDoctorId());
             %>
-
             <tr>
                 <td><%= appointment.getFullName() %></td>
                 <td><%= appointment.getGender() %></td>
@@ -59,23 +62,10 @@
                 <td><%= appointment.getEmail() %></td>
                 <td><%= appointment.getPhone() %></td>
                 <td><%= appointment.getDiseases() %></td>
+                <td><%= d.getFullName() %></td>
+                <td><%= appointment.getAddress() %></td>
                 <td><%= appointment.getStatus() %></td>
-                <td>
-                    <%
-                        if("В ожидании".equals(appointment.getStatus())){
-
-                    %>
-                    <a href="comments.jsp?id=<%= appointment.getId() %>" class="btn btn-sm btn-info">Комментарий</a>
-                    <%
-                        } else {
-                    %>
-                    <a href="#" class="btn btn-sm btn-info disabled">Комментарий</a>
-                    <%
-                        }
-                    %>
-                </td>
             </tr>
-
             <%
                 }
             %>
@@ -86,3 +76,22 @@
 </div>
 </body>
 </html>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
