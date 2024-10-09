@@ -263,6 +263,72 @@ public class TeacherDao {
     }
 
 
+    public boolean checkOldPassword(int studentId, String oldPassword){
+        boolean flag = false;
+
+        try{
+            String sql = "SELECT * FROM teacher WHERE id = ? AND password = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, studentId);
+            ps.setString(2, oldPassword);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                flag = true;
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+
+    public boolean changePassword(int studentId, String newPassword){
+        boolean flag = false;
+
+        try{
+            String sql = "UPDATE teacher SET password = ? WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setInt(2, studentId);
+            int row = ps.executeUpdate();
+            if(row == 1){
+                flag = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
+
+    public boolean editTeacherProfile(Teacher teacher){
+        boolean flag = false;
+
+        try{
+            String sql = "UPDATE teacher SET full_name=?, dob=?, qualification=?, speciality=?, email=?, mobno=? WHERE id=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, teacher.getFullName());
+            preparedStatement.setString(2, teacher.getDob());
+            preparedStatement.setString(3, teacher.getQualification());
+            preparedStatement.setString(4, teacher.getSpeciality());
+            preparedStatement.setString(5, teacher.getEmail());
+            preparedStatement.setString(6, teacher.getMobNo());
+            preparedStatement.setInt(7, teacher.getId());
+
+            int row = preparedStatement.executeUpdate();
+            System.out.println("Hello " + row);
+            if(row == 1){
+                flag = true;
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
 }
 
 

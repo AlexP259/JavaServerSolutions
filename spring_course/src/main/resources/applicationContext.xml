@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--  Inversion of Control  -->
+    <bean id="myPet" class="org.spring.Cat"></bean>
+
+<!--    Dependency Injection-->
+        <bean id="myPerson" class="org.spring.Person">
+<!--            <constructor-arg ref="myPet"/>-->
+            <property name="pet" ref="myPet" />
+            <property name="surname" value="Ветров" />
+            <property name="age" value="35" />
+        </bean>
+
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+

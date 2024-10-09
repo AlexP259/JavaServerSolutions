@@ -1,3 +1,7 @@
+<%@ page import="com.dao.SpecialistDao" %>
+<%@ page import="com.db.DBConnect" %>
+<%@ page import="com.entity.Specialist" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
@@ -9,7 +13,7 @@
 <jsp:include page="navbar.jsp"/>
 
 <c:if test="${empty doctorObj}">
-    <c:redirect url="doctor_login.jsp"></c:redirect>
+    <c:redirect url="../doctor_login.jsp"></c:redirect>
 </c:if>
 
 
@@ -45,10 +49,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="card point-card">
                 <div class="card-body">
                     <form action="../doctorUpdateProfile" method="post">
@@ -69,41 +70,40 @@
 
                         <div class="mb-3">
                             <label for="special">Специалист</label>
-                            <select name="spec" id="special" required class="form-control">
-                                <option disabled hidden selected>-- Выбор специалиста --</option>
-                                <%--                                    <%--%>
-                                <%--                                        SpecialistDao dao = new SpecialistDao(DBConnect.getConnection());--%>
-                                <%--                                        List<Specialist> list = dao.getAllSpecialist();--%>
-                                <%--                                        for (Specialist s : list){--%>
-                                <%--                                    %>--%>
-                                <%--                                    <option value="<%= s.getSpecialistName() %>"><%= s.getSpecialistName() %></option>--%>
-                                <%--                                    <%--%>
-                                <%--                                        }--%>
-                                <%--                                    %>--%>
+                            <select required name="spec" id="special" class="form-control">
+                                <option hidden>${doctorObj.specialist}</option>
+                                <%
+                                    SpecialistDao dao = new SpecialistDao(DBConnect.getConnection());
+                                    List<Specialist> list = dao.getAllSpecialist();
+                                    for (Specialist s : list) {
+                                %>
+                                <option><%= s.getSpecialistName() %></option>
+                                <%
+                                    }
+                                %>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="email">Email</label>
-                            <input type="email" required name="email" class="form-control" id="email">
+                            <input type="email" readonly name="email" class="form-control" id="email" value="${doctorObj.email}">
                         </div>
 
                         <div class="mb-3">
                             <label for="tel">Телефон</label>
-                            <input type="tel" required name="mobno" class="form-control" id="tel">
+                            <input type="tel" required name="mobno" class="form-control" id="tel" value="${doctorObj.mobNo}">
                         </div>
 
-                        <div class="mb-3">
-                            <label for="psw">Пароль</label>
-                            <input type="password" required name="password" class="form-control" id="psw">
-                        </div>
+                        <input type="hidden" name="id" value="${doctorObj.id}">
 
-                        <button class="btn btn-info">Отправить</button>
+                        <button class="btn btn-info">Обновить</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 </section>
 
