@@ -25,11 +25,11 @@ public class Main {
 //        context.close();
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
         Person person = (Person) context.getBean("myPerson");
         person.callYourPet();
         System.out.println(person.getSurname());
         System.out.println(person.getAge());
-
 
         context.close();
     }
