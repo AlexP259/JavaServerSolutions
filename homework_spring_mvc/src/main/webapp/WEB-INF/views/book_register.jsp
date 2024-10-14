@@ -9,7 +9,7 @@
 
 <p>${msg}</p>
 
-<form action="createBook">
+<form action="createBook" method="post">
     <p>
         <label for="title">Название книги</label>
         <input type="text" name="bookTitle" id="title">

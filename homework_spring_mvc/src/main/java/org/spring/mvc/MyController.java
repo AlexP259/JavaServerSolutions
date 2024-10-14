@@ -25,11 +25,11 @@ public class MyController {
         return "book_register";
     }
 
-    @RequestMapping(value = "/createBook", method = RequestMethod.GET)
+    @RequestMapping(path = "/createBook", method = RequestMethod.POST)
     public String regis325terBook(@ModelAttribute Book book, Model m){
         bookService.registerBook(book);
-        m.addAttribute("msg", "Книга добавлена");
-        return "book_register";
+        m.addAttribute("book", book);
+        return "success";
     }
 
 }
