@@ -16,7 +16,7 @@ public class MyController {
     private BookService bookService;
 
     @RequestMapping("/main")
-    public String ma3123in(){
+    public String main(){
         return "main";  // при обращении по адресу "/main" возвращает страницу main.jsp
     }
 
