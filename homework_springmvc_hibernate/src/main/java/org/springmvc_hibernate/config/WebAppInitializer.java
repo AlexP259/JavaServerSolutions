@@ -1,4 +1,4 @@
-package org.spring.mvc.config;
+package org.springmvc_hibernate.config;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;

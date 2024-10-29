@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Index</td>
+        <td>Even</td>
+        <td>Odd</td>
+        <td>First</td>
+        <td>Last</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Role</td>
+        <td>Gender</td>
+    </tr>
+
+    <tr th:each="user, userStat : ${users}">
+        <td th:text="${userStat.count}"></td>
+        <td th:text="${userStat.index}"></td>
+        <td th:text="${userStat.even}"></td>
+        <td th:text="${userStat.odd}"></td>
+        <td th:text="${userStat.first}"></td>
+        <td th:text="${userStat.last}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.gender}"></td>
+    </tr>
+</table>
+</body>
+</html>

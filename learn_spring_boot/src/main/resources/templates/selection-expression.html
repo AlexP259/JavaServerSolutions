@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Selection Expression</h1>
+<h2>User Details</h2>
+<div th:object="${user}">
+    <p>Name: <strong th:text="*{name}"></strong></p>
+    <p>Email: <strong th:text="*{email}"></strong></p>
+    <p>Role: <strong th:text="*{role}"></strong></p>
+    <p>Gender: <strong th:text="*{gender}"></strong></p>
+</div>
+</body>
+</html>
