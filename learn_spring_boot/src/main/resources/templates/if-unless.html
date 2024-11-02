@@ -18,8 +18,22 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.role}"></td>
-        <td></td>
+        <td>
+            <a th:href="@{/update}" th:if="${user.role} == 'ADMIN'">Update</a>
+            <a th:href="@{/delete}" th:if="${user.role} == 'ADMIN'">Delete</a>
+            <a th:href="@{/delete}" th:unless="${user.role} == 'ADMIN'">View</a>
+        </td>
     </tr>
 </table>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

@@ -53,7 +53,6 @@ public class UserController {
         return "users";
     }
 
-
     @GetMapping("if-unless")
     public String ifUnless(Model model){
         User admin = new User("Igor", "igor@gmail.com", "ADMIN", "Male");
@@ -65,6 +64,13 @@ public class UserController {
         users.add(user2);
         model.addAttribute("users", users);
         return "if-unless";
+    }
+
+    @GetMapping("switch-case")
+    public String switchCase(Model model){
+        User user = new User("Igor", "igor@gmail.com", "GUEST", "Male");
+        model.addAttribute("user", user);
+        return "switch-case";
     }
 
 }

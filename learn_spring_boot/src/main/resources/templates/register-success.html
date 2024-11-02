@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Информация о зарегистрированном пользователе</h1>
+    <div>
+        <p>Имя: <strong th:text="${userForm.name}"></strong></p>
+        <p>Email: <strong th:text="${userForm.email}"></strong></p>
+        <p>Пароль: <strong th:text="${userForm.password}"></strong></p>
+        <p>Пол: <strong th:text="${userForm.gender}"></strong></p>
+        <p>Адрес: <strong th:text="${userForm.address}"></strong></p>
+        <p>Профессия: <strong th:text="${userForm.profession}"></strong></p>
+    </div>
+</div>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

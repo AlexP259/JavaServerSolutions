@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Страница авторизации</h1>
+<div>
+    <form th:action="@{/login/check}" method="get">
+        <p>ФИО: <input type="text" name="name"></p>
+        <p>Email: <input type="email" name="email"></p>
+        <p>Пароль: <input type="password" name="password"></p>
+        <p>
+            <button>Авторизация</button>
+        </p>
+    </form>
+</div>
+</body>
+</html>

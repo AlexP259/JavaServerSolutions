@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Форма регистрации</h1>
+    <form th:action="@{/register/save}" method="post" th:object="${userForm}">
+        <p>ФИО: <input type="text" th:field="*{name}"></p>
+        <p>Email: <input type="email" th:field="*{email}"></p>
+        <p>Пароль: <input type="password" th:field="*{password}"></p>
+        <p>Пол:
+            <input type="radio" th:field="*{gender}" value="male"> М
+            <input type="radio" th:field="*{gender}" value="female"> Ж
+        </p>
+        <p>Адрес:
+            <textarea cols="25" rows="5" th:field="*{address}"></textarea>
+        </p>
+        <p>Профессия:
+            <select th:field="*{profession}">
+                <option th:each="p : ${listProfession}" th:value="${p}" th:text="${p}"></option>
+            </select>
+        </p>
+        <p>
+            <button>Регистрация</button>
+        </p>
+    </form>
+</div>
+</body>
+</html>
