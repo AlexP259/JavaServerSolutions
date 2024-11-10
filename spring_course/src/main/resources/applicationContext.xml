@@ -11,7 +11,7 @@
 
 <!--    Dependency Injection-->
 <!--        <bean id="myPerson" class="org.spring.Person">-->
-<!--&lt;!&ndash;            <constructor-arg ref="myPet"/>&ndash;&gt;-->
+<!--           <constructor-arg ref="myPet"/>-->
 <!--            <property name="pet" ref="myPet" />-->
 <!--            <property name="surname" value="${person.surname}" />-->
 <!--            <property name="age" value="${person.age}" />-->

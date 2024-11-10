@@ -4,38 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0051b235-88ad-4644-9056-d14cb153bb07" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../my-web-app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../my-web-app/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../my-web-app/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../my-web-app/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/database/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/database/src/main/java/com/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/database/src/main/java/com/example/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/database/src/main/java/com/example/UserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/service/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/service/src/main/java/com/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/web/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/web/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../first-mvc-app/web/src/main/webapp/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web-app/src/main/webapp/index.jsp" beforeDir="false" />
-    </list>
+    <list default="true" id="0051b235-88ad-4644-9056-d14cb153bb07" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,34 +21,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [site].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.lesson3 [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Maven.lesson3 [clean].executor": "Run",
+    "Maven.lesson3 [compile].executor": "Run",
+    "Maven.lesson3 [install].executor": "Run",
+    "Maven.lesson3 [package].executor": "Run",
+    "Maven.lesson3 [site].executor": "Run",
+    "Maven.lesson3 [test].executor": "Run",
+    "Maven.lesson3 [validate].executor": "Run",
+    "Maven.lesson3 [verify].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/java_projects/TOP ACADEMY/Java313/projects/spring_mvc",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -94,6 +64,7 @@
       <workItem from="1725377122543" duration="3283000" />
       <workItem from="1725395451233" duration="2693000" />
       <workItem from="1725400776639" duration="118000" />
+      <workItem from="1730644672810" duration="101000" />
     </task>
     <servers />
   </component>
