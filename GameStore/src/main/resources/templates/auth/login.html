@@ -1,30 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div>
-    <h1>Login Page</h1>
+<div th:fragment="forwarded_content">
 
-    <div th:if="${param.error}">
-        <p style="color:red">Неверное имя пользователя или пароль</p>
+    <div class="container p-3">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header text-center fs-4">Login Page</div>
+
+                    <th:block th:if="${param.error}">
+                        <p class="text-center text-danger fs-5">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+                    </th:block>
+
+                    <th:block th:if="${param.logout}">
+                        <p class="text-center text-success fs-5">Logout successfully</p>
+                    </th:block>
+
+                    <div class="card-body">
+                        <form action="userLogin" method="post">
+
+                            <div class="mb-3">
+                                <p>
+                                    Email: <input type="email" name="username" class="form-control">
+                                </p>
+                            </div>
+
+                            <div class="mb-3">
+                                <p>
+                                    Password: <input type="password" name="password" class="form-control">
+                                </p>
+                            </div>
+
+                            <p>
+                                <button class="btn btn-primary col-md-12">Login</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <form th:action="@{/login}" method="post">
-        <div>
-            Username: <input type="email" name="username">
-        </div>
-        <div>
-            Password: <input type="password" name="password">
-        </div>
-        <div>
-            <button>Login</button>
-        </div>
-    </form>
-
-    <a th:href="@{/register}">Регистрация</a>
 </div>
 </body>
 </html>

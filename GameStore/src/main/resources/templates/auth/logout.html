@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div>
+<div th:fragment="forwarded_content">
     <h1>Logout Page</h1>
-    <h1>Вы вышли из учетной записи</h1>
-    <a th:href="@{/login}">Авторизация</a>
+    <h1>Вы хотите выйти из учетной записи?</h1>
+    <a th:href="@{/logout}">Да, выйти</a>
+    <a th:href="@{/}">Нет, остаться</a>
+
 </div>
 </body>
 </html>

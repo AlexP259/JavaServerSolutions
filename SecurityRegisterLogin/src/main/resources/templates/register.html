@@ -11,6 +11,12 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-header text-center fs-4">Register Page</div>
+
+                    <th:block th:if="${session.msg}">
+                        <p class="text-center text-success fs-4" th:text="${session.msg}"></p>
+                        <th:block th:text="${@userService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
                     <div class="card-body">
                         <form action="saveUser" method="post">
                             <div class="mb-3">

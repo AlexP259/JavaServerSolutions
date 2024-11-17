@@ -6,6 +6,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,7 +22,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return new CustomUserDetailService();
+        return new CustomUserDetailsService();
     }
 
     @Bean
@@ -35,18 +36,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(
+                .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/login", "/register", "/logout", "/public/**").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/", "/signin", "/register","/saveUser", "/about").permitAll()
+                                .requestMatchers("/user/**").authenticated()
                 )
+                .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/signin")
+                        .loginProcessingUrl("/userLogin")
+                        .defaultSuccessUrl("/")
                         .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout"));
+                );
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer configureWebSecurity(){
+        return (web) -> web.ignoring().requestMatchers("/img/**", "/css/**");
     }
 }
 

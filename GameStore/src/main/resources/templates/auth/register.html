@@ -6,12 +6,18 @@
 </head>
 <body>
 <div th:fragment="forwarded_content">
-    <h1>Register Page</h1>
+
     <div class="container p-3">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-header text-center fs-4">Register Page</div>
+
+                    <th:block th:if="${session.msg}">
+                        <p class="text-center text-success fs-4" th:text="${session.msg}"></p>
+                        <th:block th:text="${@userService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
                     <div class="card-body">
                         <form action="saveUser" method="post">
                             <div class="mb-3">

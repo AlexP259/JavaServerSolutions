@@ -5,9 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="forwarded_content">
+<div class="text-center" th:fragment="forwarded_content">
   <h1>User Page</h1>
-    <a th:href="@{logout}">Выйти</a>
+
+    <h4>Name: <span th:text="${user.name}"></span></h4>
+    <h4>Email: <span th:text="${user.email}"></span></h4>
+    <h4>Role: <span th:text="${user.role}"></span></h4>
+
+    <a th:href="@{/user/signout}">Выйти</a>
 </div>
 </body>
 </html>

@@ -7,10 +7,6 @@ import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
 
-/**
- * Класс представляет собой пользователя сайта в смысле администрирования
- */
-
 @Entity
 public class User {
 
