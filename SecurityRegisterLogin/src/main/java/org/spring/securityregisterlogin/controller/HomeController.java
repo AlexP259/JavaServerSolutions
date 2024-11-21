@@ -48,13 +48,6 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/user/profile")
-    public String profile(Principal principal, Model model){
-        String email = principal.getName();
-        User user = userRepo.findByEmail(email);
-        model.addAttribute("user", user);
-        return "profile";
-    }
 
     @GetMapping("/user/home")
     public String home(){
@@ -73,8 +66,12 @@ public class HomeController {
 //            System.out.println("Error save user");
             session.setAttribute("msg", "Register failed");
         }
-
         return "redirect:/register";
+    }
+
+    @GetMapping("/item")
+    public String item(){
+        return "view_item";
     }
 
 

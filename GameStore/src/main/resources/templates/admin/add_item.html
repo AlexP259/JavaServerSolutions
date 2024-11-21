@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+
+                <div class="card card-sh">
+
+                    <div class="card-header">Добавить элемент</div>
+
+                    <div class="card-body">
+                        <form action="/admin/savePost" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id">
+                            <div class="mb-3">
+                                Введите заголовок
+                                <input type="text" name="title" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                Введите описание
+                                <textarea name="content" cols="" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                Категория
+                                <select name="category" class="form-control">
+                                    <option>Категория</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                Загрузить изображение
+                                <input type="file" name="file" class="form-control">
+                            </div>
+                            <button class="btn btn-primary col-md-12">Сохранить</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

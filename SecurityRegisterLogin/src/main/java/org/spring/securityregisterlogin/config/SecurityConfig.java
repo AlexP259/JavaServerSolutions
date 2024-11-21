@@ -4,7 +4,6 @@ package org.spring.securityregisterlogin.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -15,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private AuthSuccess authSuccess = new AuthSuccess();
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
@@ -39,14 +40,16 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/", "/register", "/signin", "/saveUser").permitAll()
+                                .requestMatchers("/", "/register", "/signin", "/saveUser", "/item").permitAll()
                                 .requestMatchers("/user/**").authenticated()
+                                .requestMatchers("/admin/**").authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form
                         .loginPage("/signin")
                         .loginProcessingUrl("/userLogin")
-                        .defaultSuccessUrl("/user/profile")
+                        .defaultSuccessUrl("/")
+                        .successHandler(authSuccess)
                         .permitAll());
         return http.build();
     }

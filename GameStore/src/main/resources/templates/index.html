@@ -5,12 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="forwarded_content">
+<div th:fragment="forwarded_content" class="my-div">
 
-
-    <div class="container-fluid bg-secondary bg-gradient p-3">
+    <div class="container-fluid my-color-gray bg-gradient p-3 ">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 offset-md-1">
                 <form action="">
                     <div class="input-group">
                         <input type="text" class="form-control" name="ch">
@@ -28,11 +27,13 @@
             <div class="col-md-2">
                 <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                     <div class="card-body">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Категории</a>
-                        <a href="#" class="list-group-item list-group-item-action">Категория 1</a>
-                        <a href="#" class="list-group-item list-group-item-action">Категория 2</a>
-                        <a href="#" class="list-group-item list-group-item-action">Категория 3</a>
-                        <a href="#" class="list-group-item list-group-item-action">Категория 4</a>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Категории</a>
+                            <a href="#" class="list-group-item list-group-item-action">Категория 1</a>
+                            <a href="#" class="list-group-item list-group-item-action">Категория 2</a>
+                            <a href="#" class="list-group-item list-group-item-action">Категория 3</a>
+                            <a href="#" class="list-group-item list-group-item-action">Категория 4</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,10 +45,12 @@
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <div class="card">
-                                    <img src="/img/post_img/gta_v.jpg" alt="" width="100%">
-                                    <p class="fs-5 text-center">Заголовок для записи</p>
-                                    <div class="row text-center">
-                                        <a href="/item" class="btn btn-secondary col-md-6 offset-md-3 mb-3">Подробнее</a>
+                                    <div class="card-body text-center">
+                                        <img src="/img/post_img/gta_v.jpg" alt="" width="100%">
+                                        <p class="fs-5 text-center">Заголовок для записи</p>
+                                        <div class="row text-center">
+                                            <a href="/item" class="btn my-color-gray col-md-6 offset-md-3 text-light">Подробнее</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

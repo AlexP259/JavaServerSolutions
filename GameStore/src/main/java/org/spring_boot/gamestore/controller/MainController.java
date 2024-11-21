@@ -3,6 +3,7 @@ package org.spring_boot.gamestore.controller;
 import jakarta.servlet.http.HttpSession;
 import org.spring_boot.gamestore.entity.User;
 import org.spring_boot.gamestore.repository.UserRepo;
+import org.spring_boot.gamestore.service.ISessionManagementService;
 import org.spring_boot.gamestore.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class MainController {
 
     @Autowired
     public UserRepo userRepo;
+
 
     @ModelAttribute
     public void commonUser(Principal principal, Model model){
@@ -44,14 +46,6 @@ public class MainController {
     @GetMapping("/user/game-catalog")
     public String gameCatalog() {
         return "game_catalog";
-    }
-
-    @GetMapping("/user/user")
-    public String user(Principal principal, Model model) {
-        String email = principal.getName();
-        User user = userRepo.findByEmail(email);
-        model.addAttribute("user", user);
-        return "user";
     }
 
     @GetMapping("/register")
@@ -85,6 +79,11 @@ public class MainController {
         }
 
         return "redirect:/register";
+    }
+
+    @GetMapping("/item")
+    public String item(){
+        return "view_item";
     }
 
 }

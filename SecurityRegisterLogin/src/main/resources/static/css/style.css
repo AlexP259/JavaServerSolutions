@@ -1,0 +1,19 @@
+section .active {
+    background: #dc8d00 !important;
+    border: 3px solid #976200 !important;
+}
+
+.image {
+    width: 60%;
+    float: left;
+    margin-right: 16px;
+}
+
+.card-sh{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .3);
+    margin-top: 20px;
+}
+
+.img{
+    width: 100%;
+}

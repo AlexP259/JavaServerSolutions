@@ -31,6 +31,8 @@ public class UserService implements IUserService{
     public void removeSessionMessage() {
         HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest().getSession();
         session.removeAttribute("msg");
+        session.removeAttribute("succMsg");
+        session.removeAttribute("errorMsg");
     }
 }
 
