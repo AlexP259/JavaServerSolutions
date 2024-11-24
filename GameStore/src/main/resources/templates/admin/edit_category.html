@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 offset-md-3">
+                <div class="card card-sh">
+                    <div class="card-header text-center">Редактировать категорию</div>
+
+
+
+                    <div class="card-body">
+                        <form action="/admin/updateCategory" method="post">
+                            <input type="hidden" name="id" th:value="${category.id}">
+                            <div class="mb-3">
+                                Введите название категории
+                                <input type="text" name="name" class="form-control" th:value="${category.name}">
+                            </div>
+                            <button class="btn btn-primary col-md-12">Обновить</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
