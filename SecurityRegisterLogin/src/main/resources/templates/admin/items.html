@@ -22,6 +22,19 @@
                 <th:block th:text="${@userService.removeSessionMessage()}"></th:block>
             </th:block>
 
+            <div class="col-md-12 pt-4">
+                <form action="/admin/items" method="get">
+                    <div class="row">
+                        <div class="col-md-9 offset-md-1">
+                            <input type="text" name="ch" class="form-control">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="card-body">
                 <table class="table">
                     <tr>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="menu">
   <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/}">Новости</a>
+    <a class="navbar-brand" th:href="@{/}">Каталог игр</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,9 +8,6 @@
       <ul class="navbar-nav">
 
         <th:block th:if="${user != null}">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/user/game-catalog}">Каталог игр</a>
-          </li>
           <li class="nav-item" th:if="${user.role == 'ROLE_USER'}">
             <a class="nav-link" th:href="@{/user/profile}">Профиль</a>
           </li>
@@ -39,7 +36,7 @@
             <a class="nav-link" th:href="@{/admin/}">Панель админа</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/admin/logout}">Выйти</a>
+            <a class="nav-link active" aria-current="page" th:href="@{/signout}">Выйти</a>
           </li>
         </th:block>
 

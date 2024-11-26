@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+    <div class="container mt-4">
+        <div class="card card-sh">
+            <div class="card-header text-center">
+                <p class="fs-4 mt-4">Список игр</p>
+
+
+                <th:block th:if="${session.succMsg}">
+                    <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
+                    <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                </th:block>
+
+                <th:block th:if="${session.errorMsg}">
+                    <p th:text="${session.errorMsg}" class="text-danger fw-bold text-center mt-4"></p>
+                    <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                </th:block>
+
+                <div class="col-md-12 p-2">
+                    <form action="/admin/games" method="get">
+                        <div class="row">
+                            <div class="col-md-9 offset-md-1">
+                                <input type="text" name="ch" class="form-control">
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary">Поиск</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Изображение</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Жанр</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                    <tr th:each="g, c : ${games}">
+                        <th th:text="${c.count}"></th>
+                        <td><img th:src="@{'/img/game_img/'+${g.image}}" width="100" alt=""></td>
+                        <td th:text="${g.name}"></td>
+                        <td th:text="${g.genre}"></td>
+                        <td>
+                            <a th:href="@{'/admin/editGame/'+${g.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                            <a th:href="@{'/admin/deleteGame/'+${g.id}}" class="btn btn-sm btn-danger">Удалить</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

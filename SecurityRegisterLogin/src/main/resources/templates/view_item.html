@@ -8,8 +8,9 @@
 <section>
     <div class="container card-sh">
         <div class="col-md-12 p-5">
-            <img src="/img/post_img/pole-derevo-svet.jpg" class="image" width="100%">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus ad architecto, assumenda autem, consequuntur delectus dolor dolorum eius eos facilis in inventore minus nihil odit rem saepe tempore vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at beatae commodi consectetur consequuntur, distinctio inventore modi nesciunt obcaecati quia, quod ratione rem tenetur? Aperiam eius incidunt placeat quis ratione. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consectetur delectus dicta reiciendis rerum tempore veniam? Harum minus non nulla sed suscipit. Autem minima minus nam officia porro quasi quia. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore pariatur placeat quisquam sapiente suscipit? Consequatur delectus dolorem nulla quaerat. Adipisci cumque eos iure non suscipit vero! Debitis, dignissimos dolorem. Eum! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus ad architecto, assumenda autem, consequuntur delectus dolor dolorum eius eos facilis in inventore minus nihil odit rem saepe tempore vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at beatae commodi consectetur consequuntur, distinctio inventore modi nesciunt obcaecati quia, quod ratione rem tenetur? Aperiam eius incidunt placeat quis ratione. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consectetur delectus dicta reiciendis rerum tempore veniam? Harum minus non nulla sed suscipit. Autem minima minus nam officia porro quasi quia. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore pariatur placeat quisquam sapiente suscipit? Consequatur delectus dolorem nulla quaerat. Adipisci cumque eos iure non suscipit vero! Debitis, dignissimos dolorem. Eum!</p>
+            <h3 th:text="${post.title}" class="text-center mb-5"></h3>
+            <img th:src="@{'/img/post_img/'+${post.image}}" class="image" width="100%">
+            <div th:text="${post.content}"></div>
         </div>
     </div>
 </section>

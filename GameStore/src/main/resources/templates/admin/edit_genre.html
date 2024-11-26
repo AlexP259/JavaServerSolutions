@@ -16,11 +16,11 @@
 
 
                     <div class="card-body">
-                        <form action="/admin/updateCategory" method="post">
-                            <input type="hidden" name="id" th:value="${category.id}">
+                        <form action="/admin/updateGenre" method="post">
+                            <input type="hidden" name="id" th:value="${genre.id}">
                             <div class="mb-3">
-                                Введите название категории
-                                <input type="text" name="name" class="form-control" th:value="${category.name}">
+                                Введите название жанра
+                                <input type="text" name="name" class="form-control" th:value="${genre.name}">
                             </div>
                             <button class="btn btn-primary col-md-12">Обновить</button>
                         </form>

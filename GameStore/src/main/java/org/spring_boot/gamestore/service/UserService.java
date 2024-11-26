@@ -1,14 +1,12 @@
 package org.spring_boot.gamestore.service;
 
-import jakarta.servlet.http.HttpSession;
 import org.spring_boot.gamestore.entity.User;
 import org.spring_boot.gamestore.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+
 
 
 @Service

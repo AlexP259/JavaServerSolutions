@@ -12,7 +12,7 @@
 
                 <div class="card card-sh">
 
-                    <div class="card-header text-center fs-4">Добавить пост</div>
+                    <div class="card-header text-center fs-4">Добавить игру</div>
 
                     <th:block th:if="${session.succMsg}">
                         <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
@@ -25,21 +25,21 @@
                     </th:block>
 
                     <div class="card-body">
-                        <form action="/admin/savePost" method="post" enctype="multipart/form-data">
+                        <form action="/admin/saveGame" method="post" enctype="multipart/form-data">
 <!--                            <input type="hidden" name="id">-->
                             <div class="mb-3">
-                                Введите заголовок
-                                <input type="text" name="title" class="form-control">
+                                Введите название
+                                <input type="text" name="name" class="form-control">
                             </div>
                             <div class="mb-3">
                                 Введите описание
-                                <textarea name="content" cols="" rows="3" class="form-control"></textarea>
+                                <textarea name="description" cols="" rows="3" class="form-control"></textarea>
                             </div>
                             <div class="mb-3">
-                                Категория
-                                <select name="category" class="form-control">
+                                Жанр
+                                <select name="genre" class="form-control">
                                     <option hidden="hidden">--выбрать</option>
-                                    <option th:each="c:${categories}" th:text="${c.name}"></option>
+                                    <option th:each="g:${genres}" th:text="${g.name}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">

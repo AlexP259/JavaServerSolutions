@@ -1,12 +1,12 @@
 package org.spring_boot.gamestore.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.spring_boot.gamestore.entity.Category;
-import org.spring_boot.gamestore.entity.Post;
+import org.spring_boot.gamestore.entity.Genre;
+import org.spring_boot.gamestore.entity.Game;
 import org.spring_boot.gamestore.entity.User;
 import org.spring_boot.gamestore.repository.UserRepo;
-import org.spring_boot.gamestore.service.ICategoryService;
-import org.spring_boot.gamestore.service.IPostService;
+import org.spring_boot.gamestore.service.IGameService;
+import org.spring_boot.gamestore.service.IGenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,10 +30,10 @@ public class AdminController {
     private UserRepo userRepo;
 
     @Autowired
-    private ICategoryService categoryService;
+    private IGenreService genreService;
 
     @Autowired
-    private IPostService postService;
+    private IGameService gameService;
 
 
     @ModelAttribute
@@ -58,113 +58,121 @@ public class AdminController {
         return "admin/index";
     }
 
-    @GetMapping("/logout")
-    public String logout(){
-        return "auth/logout";
+    @GetMapping("/loadAddGame")
+    public String loadAddGame(Model m){
+        List<Genre> genres = genreService.getAllGenres();
+        m.addAttribute("genres", genres);
+        return "admin/add_game";
     }
 
-    @GetMapping("/loadAddItem")
-    public String loadAddItem(Model m){
-        List<Category> categories = categoryService.getAllCategory();
-        m.addAttribute("categories", categories);
-        return "admin/add_item";
+    @GetMapping("/genre")
+    public String genres(Model m){
+        m.addAttribute("genres", genreService.getAllGenres());
+        return "admin/genre";
     }
 
-    @GetMapping("/category")
-    public String category(Model m){
-        m.addAttribute("categories", categoryService.getAllCategory());
-        return "admin/category";
-    }
-
-    @PostMapping("/saveCategory")
-    public String saveCategory(@ModelAttribute Category category, HttpSession session){
-        Boolean existCategory = categoryService.existCategory(category.getName());
-        if(existCategory){
-            session.setAttribute("errorMsg", "Категория с таким именем уже существует");
+    @PostMapping("/saveGenre")
+    public String saveGenre(@ModelAttribute Genre genre, HttpSession session){
+        Boolean existGenre = genreService.existGenre(genre.getName());
+        if(existGenre){
+            session.setAttribute("errorMsg", "Такой жанр уже существует");
         } else {
-            if(category.getName().trim().isEmpty()){
-                session.setAttribute("errorMsg", "Пустое название категории");
+            if(genre.getName().trim().isEmpty()){
+                session.setAttribute("errorMsg", "Пустое название жанра");
             } else {
-                Category saveCategory = categoryService.saveCategory(category);
-                if(saveCategory != null){
-                    session.setAttribute("succMsg", "Категория создана успешно");
+                Genre saveGenre = genreService.saveGenre(genre);
+                if(saveGenre != null){
+                    session.setAttribute("succMsg", "Жанр сохранен успешно");
                 } else {
-                    session.setAttribute("errorMsg", "Ошибка создания категории");
+                    session.setAttribute("errorMsg", "Ошибка сохранения жанра");
                 }
             }
         }
-        return "redirect:/admin/category";
+        return "redirect:/admin/genre";
     }
 
-    @GetMapping("/deleteCategory/{id}")
-    public String deleteCategory(@PathVariable int id, HttpSession session){
-        Boolean deleteCategory = categoryService.deleteCategory(id);
-        if(deleteCategory){
-            session.setAttribute("succMsg", "Категория удалена успешно");
+    @GetMapping("/deleteGenre/{id}")
+    public String deleteGenre(@PathVariable int id, HttpSession session){
+        Boolean deleteGenre = genreService.deleteGenre(id);
+        if(deleteGenre){
+            session.setAttribute("succMsg", "Жанр удален успешно");
         } else {
-            session.setAttribute("errorMsg", "Ошибка удаления категории");
+            session.setAttribute("errorMsg", "Ошибка удаления жанра");
         }
-        return "redirect:/admin/category";
+        return "redirect:/admin/genre";
     }
 
-    @GetMapping("/loadEditCategory/{id}")
-    public String loadEditCategory(@PathVariable int id, Model m){
-        m.addAttribute("category", categoryService.getCategoryById(id));
-        return "admin/edit_category";
+    @GetMapping("/loadEditGenre/{id}")
+    public String loadEditGenre(@PathVariable int id, Model m){
+        m.addAttribute("genre", genreService.getGenreById(id));
+        return "admin/edit_genre";
     }
 
-    @PostMapping("/updateCategory")
-    public String updateCategory(@ModelAttribute Category category, HttpSession session){
-        Category oldCategory = categoryService.getCategoryById(category.getId());
-        if(oldCategory != null){
-            oldCategory.setName(category.getName());
+    @PostMapping("/updateGenre")
+    public String updateGenre(@ModelAttribute Genre genre, HttpSession session){
+        Genre oldGenre = genreService.getGenreById(genre.getId());
+        if(oldGenre != null){
+            oldGenre.setName(genre.getName());
         }
-        Category updateCategory = categoryService.saveCategory(oldCategory);
-        if(updateCategory != null){
-            session.setAttribute("succMsg", "Категория обновлена успешно");
+        Genre updateGenre = genreService.saveGenre(oldGenre);
+        if(updateGenre != null){
+            session.setAttribute("succMsg", "Жанр обновлен успешно");
         } else {
-            session.setAttribute("errorMsg", "Ошибка обновления категории");
+            session.setAttribute("errorMsg", "Ошибка обновления жанра");
         }
-        return "redirect:/admin/category";
+        return "redirect:/admin/genre";
     }
 
-    @PostMapping("/savePost")
-    public String savePost(@ModelAttribute Post post, HttpSession session, @RequestParam("file")MultipartFile image) throws IOException {
+    @PostMapping("/saveGame")
+    public String saveGame(@ModelAttribute Game game, HttpSession session, @RequestParam("file")MultipartFile image) throws IOException {
         String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
-        post.setImage(imageName);
+        game.setImage(imageName);
 
-        Post savePost = postService.savePost(post);
-        if(savePost != null){
+        Game saveGame = gameService.saveGame(game);
+        if(saveGame != null){
             String saveFile = new File("src/main/resources/static/img/").getAbsolutePath();
             System.out.println(saveFile);
             if(!image.isEmpty()){
-                Path path = Paths.get(saveFile + File.separator + "post_img" + File.separator + image.getOriginalFilename());
+                Path path = Paths.get(saveFile + File.separator + "game_img" + File.separator + image.getOriginalFilename());
                 System.out.println(path);
 
                 Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
-            session.setAttribute("succMsg", "Пост сохранен успешно");
+            session.setAttribute("succMsg", "Игра сохранена успешно");
         } else {
-            session.setAttribute("errorMsg", "Ошибка сохранения поста");
+            session.setAttribute("errorMsg", "Ошибка сохранения игры");
         }
-        return "redirect:/admin/loadAddItem";
+        return "redirect:/admin/loadAddGame";
     }
 
-    @GetMapping("/items")
-    public String loadViewPosts(Model m){
-        m.addAttribute("posts", postService.getAllPosts());
-        return "admin/items";
+    @GetMapping("/games")
+    public String loadViewGame(Model m, @RequestParam(defaultValue = "") String ch){
+        List<Game> games = null;
+        if(ch != null && ch.length() > 0){
+            games = gameService.searchGame(ch);
+        } else {
+            games =  gameService.getAllGames();
+        }
+        m.addAttribute("games", games);
+        return "admin/games";
     }
 
-    @GetMapping("/deleteItem/{id}")
-    public String deleteItem(@PathVariable int id, HttpSession session){
-        Boolean deletePost = postService.deletePost(id);
-        if(deletePost){
-            session.setAttribute("succMsg", "Пост удален успешно");
+    @GetMapping("/deleteGame/{id}")
+    public String deleteGame(@PathVariable int id, HttpSession session){
+        Boolean deleteGame = gameService.deleteGame(id);
+        if(deleteGame){
+            session.setAttribute("succMsg", "Игра удалена успешно");
         } else {
-            session.setAttribute("errorMsg", "Ошибка удаления поста");
+            session.setAttribute("errorMsg", "Ошибка удаления игры");
         }
-        return "redirect:/admin/items";
+        return "redirect:/admin/games";
+    }
+
+    @GetMapping("/editGame/{id}")
+    public String editGame(@PathVariable int id, Model m){
+        m.addAttribute("game", gameService.getGameById(id));
+        m.addAttribute("genres", genreService.getAllGenres());
+        return "admin/edit_game";
     }
 
 }

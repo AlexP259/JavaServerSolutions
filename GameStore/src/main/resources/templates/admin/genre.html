@@ -12,7 +12,7 @@
 <!--    Левая колонка       -->
             <div class="col-md-4">
                 <div class="card card-sh">
-                    <div class="card-header text-center">Добавить категорию</div>
+                    <div class="card-header text-center">Добавить жанр</div>
 
                     <th:block th:if="${session.succMsg}">
                         <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
@@ -25,9 +25,9 @@
                     </th:block>
 
                     <div class="card-body">
-                        <form action="/admin/saveCategory" method="post">
+                        <form action="/admin/saveGenre" method="post">
                             <div class="mb-3">
-                                Введите название категории
+                                Введите название жанра
                                 <input type="text" name="name" class="form-control">
                             </div>
                             <button class="btn btn-primary col-md-12">Сохранить</button>
@@ -39,19 +39,19 @@
 <!--    Правая колонка     -->
             <div class="col-md-8">
                 <div class="card card-sh">
-                    <div class="card-header">Категории</div>
+                    <div class="card-header">Список жанров</div>
 
                     <div class="card-body">
                         <table class="table">
                             <tr>
-                                <th scope="col">Категория</th>
+                                <th scope="col">Жанр</th>
                                 <th scope="col">Действие</th>
                             </tr>
-                            <tr th:each="cat : ${categories}">
-                                <td th:text="${cat.name}">Название категории</td>
+                            <tr th:each="g : ${genres}">
+                                <td th:text="${g.name}">Название жанра</td>
                                 <td>
-                                    <a th:href="@{'/admin/loadEditCategory/'+${cat.id}}" class="btn btn-primary btn-sm">Редактировать</a>
-                                    <a th:href="@{'/admin/deleteCategory/'+${cat.id}}" class="btn btn-danger btn-sm">Удалить</a>
+                                    <a th:href="@{'/admin/loadEditGenre/'+${g.id}}" class="btn btn-primary btn-sm">Редактировать</a>
+                                    <a th:href="@{'/admin/deleteGenre/'+${g.id}}" class="btn btn-danger btn-sm">Удалить</a>
 
                                 </td>
                             </tr>
