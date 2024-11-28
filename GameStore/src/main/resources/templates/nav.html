@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="menu">
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <a class="navbar-brand" th:href="@{/}">Каталог игр</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -42,5 +42,11 @@
 
       </ul>
     </div>
+
+    <!-- Кнопка для открытия/закрытия блока поиска -->
+    <div class="nav-item custom-search-button">
+      <button id="toggleSearchButton" class="nav-link btn-search">Показать поиск</button>
+    </div>
+
   </div>
 </nav>

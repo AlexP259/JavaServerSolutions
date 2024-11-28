@@ -13,8 +13,13 @@
                 <div class="card">
                     <div class="card-header text-center fs-4">Страница регистрации</div>
 
-                    <th:block th:if="${session.msg}">
-                        <p class="text-center text-success fs-4" th:text="${session.msg}"></p>
+                    <th:block th:if="${session.succMsg}">
+                        <p class="text-center text-success fs-4" th:text="${session.succMsg}"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-center text-danger fs-4" th:text="${session.errorMsg}"></p>
                         <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
                     </th:block>
 
@@ -22,7 +27,7 @@
                         <form action="saveUser" method="post">
                             <div class="mb-3">
                                 <p>
-                                    FIO: <input type="text" name="name" class="form-control">
+                                    ФИО: <input type="text" name="name" class="form-control">
                                 </p>
                             </div>
                             <div class="mb-3">

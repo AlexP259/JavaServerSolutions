@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+    <div class="container mt-4">
+        <div class="card card-sh">
+            <div class="card-header text-center p-0">
+                <p class="fs-3 mt-4">Список пользователей</p>
+
+
+
+
+
+
+
+
+
+
+
+                <!--  Блок строки поиска  -->
+                <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <form action="/admin/users" method="get">
+                                <div class="input-group">
+                                    <input type="text" name="ch" class="form-control">
+                                    <button class="btn btn-light text-dark ms-3">Поиск</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Роль</th>
+                        <th scope="col">Кошелек</th>
+                        <th scope="col">Купленные игры</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                    <tr th:each="u, c : ${users}">
+                        <td th:text="${u.id}"></td>
+                        <td th:text="${u.name}"></td>
+                        <td th:text="${u.email}"></td>
+                        <td th:text="${u.role}"></td>
+                        <td th:text="${u.eWallet}"></td>
+                        <td th:text="${u.id}"></td>
+                        <td>
+                            <a th:href="@{'/admin/editUser/'+${u.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+                            <a th:href="@{'/admin/deleteUser/'+${u.id}}" class="btn btn-sm btn-danger">Удалить</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

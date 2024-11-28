@@ -2,6 +2,8 @@ package org.spring_boot.gamestore.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 public class Game {
     @Id
@@ -17,6 +19,8 @@ public class Game {
     private String genre;
 
     private String image;
+
+    private BigDecimal price;
 
 
     public int getId() {
@@ -57,5 +61,25 @@ public class Game {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", genre='" + genre + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

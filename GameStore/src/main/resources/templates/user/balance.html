@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="text-center" th:fragment="forwarded_content">
+    <h1>Balance Page</h1>
+    <div class="col-md-4 card-sh m-5 p-5 mx-auto">
+        <form action="/user/saveBalance" method="post">
+            <input type="number" name="money" step="0.01" class="form-control mb-5">
+
+            <button class="form-control btn btn-secondary">Пополнить</button>
+        </form>
+
+    </div>
+
+
+
+
+</div>
+</body>
+</html>

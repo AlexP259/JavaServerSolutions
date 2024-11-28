@@ -1,6 +1,6 @@
-.my-div .active{
-    background: #a8a8a8;
-    border: 2px solid #808080;
+.my-div>.active{
+    background: #a8a8a8 !important;
+    border: 2px solid #ff6868;
 }
 
 .my-color-gray{
@@ -11,6 +11,13 @@
     width: 60%;
     float: left;
     margin-right: 16px;
+}
+
+.imageGame{
+    width: 30%;
+    float: left;
+    margin-right: 16px;
+    height:auto;
 }
 
 .card-sh{
@@ -29,4 +36,22 @@
     object-fit: cover;      /* Обрезает изображение, сохраняя пропорции */
     object-position: center; /* Центрирует изображение внутри контейнера, чтобы обрезать верх и низ */
 }
+
+.search-hidden{
+    display: none;
+}
+
+.btn-search{
+    text-decoration: none;
+    color: #575757;
+}
+
+.custom-search-button {
+    margin-right: 20px; /* Отодвигает элемент вправо */
+}
+
+
+
+
+
 

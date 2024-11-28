@@ -6,11 +6,13 @@
 </head>
 <body>
 <div th:fragment="forwarded_content">
+
+
+
     <div class="container mt-4">
         <div class="card card-sh">
-            <div class="card-header text-center">
-                <p class="fs-4 mt-4">Список игр</p>
-
+            <div class="card-header text-center p-0">
+                <p class="fs-3 mt-3">Список игр</p>
 
                 <th:block th:if="${session.succMsg}">
                     <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
@@ -22,20 +24,22 @@
                     <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
                 </th:block>
 
-                <div class="col-md-12 p-2">
-                    <form action="/admin/games" method="get">
-                        <div class="row">
-                            <div class="col-md-9 offset-md-1">
-                                <input type="text" name="ch" class="form-control">
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary">Поиск</button>
-                            </div>
+                <!--  Блок строки поиска  -->
+                <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <form action="/admin/games" method="get">
+                                <div class="input-group">
+                                    <input type="text" name="ch" class="form-control">
+                                    <button class="btn btn-light text-dark ms-3">Поиск</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
             </div>
+
             <div class="card-body">
                 <table class="table">
                     <tr>
@@ -43,6 +47,7 @@
                         <th scope="col">Изображение</th>
                         <th scope="col">Название</th>
                         <th scope="col">Жанр</th>
+                        <th scope="col">Цена</th>
                         <th scope="col">Действие</th>
                     </tr>
                     <tr th:each="g, c : ${games}">
@@ -50,14 +55,15 @@
                         <td><img th:src="@{'/img/game_img/'+${g.image}}" width="100" alt=""></td>
                         <td th:text="${g.name}"></td>
                         <td th:text="${g.genre}"></td>
+                        <td th:text="${g.price}"></td>
                         <td>
                             <a th:href="@{'/admin/editGame/'+${g.id}}" class="btn btn-sm btn-primary">Редактировать</a>
                             <a th:href="@{'/admin/deleteGame/'+${g.id}}" class="btn btn-sm btn-danger">Удалить</a>
                         </td>
                     </tr>
-
                 </table>
             </div>
+
         </div>
     </div>
 </div>

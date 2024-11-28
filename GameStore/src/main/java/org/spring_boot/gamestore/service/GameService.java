@@ -8,7 +8,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
@@ -70,4 +76,43 @@ public class GameService implements IGameService{
         }
         return pageGames;
     }
+
+    @Override
+    public Game updateGame(Game game, MultipartFile image) {
+        Game dbGame = getGameById(game.getId());
+        String imageName = image.isEmpty() ? dbGame.getImage() : image.getOriginalFilename();
+
+        dbGame.setName(game.getName());
+        dbGame.setDescription(game.getDescription());
+        dbGame.setGenre(game.getGenre());
+        dbGame.setImage(imageName);
+        dbGame.setPrice(game.getPrice());
+
+        Game updateGame = gameRepo.save(dbGame);
+
+        if(updateGame != null){
+            if(!image.isEmpty()){
+                try{
+                    String saveFile = new File("src/main/resources/static/img").getAbsolutePath();
+                    Path path = Paths.get(saveFile + File.separator + "game_img" + File.separator + image.getOriginalFilename());
+                    Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            System.out.println(game);
+            return game;
+        }
+        return null;
+    }
 }
+
+
+
+
+
+
+
+
+
+

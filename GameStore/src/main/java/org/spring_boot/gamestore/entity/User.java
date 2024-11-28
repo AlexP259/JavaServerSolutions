@@ -1,22 +1,26 @@
 package org.spring_boot.gamestore.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    public String name;
-    public String email;
-    public String password;
-    public String role;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String role;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "UsersEWallet_id")
+    private UsersEWallet eWallet;
+
+
+
+
 
     public int getId() {
         return id;
@@ -56,6 +60,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public UsersEWallet geteWallet() {
+        return eWallet;
+    }
+
+    public void seteWallet(UsersEWallet eWallet) {
+        this.eWallet = eWallet;
     }
 
     @Override

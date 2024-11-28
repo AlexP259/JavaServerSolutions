@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="forwarded_content" class="my-div">
+<div th:fragment="forwarded_content">
 
-<!--  Блок строки поиска  -->
-    <div class="container-fluid my-color-gray bg-gradient p-3 ">
+    <!--  Блок строки поиска  -->
+    <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
         <div class="row">
-            <div class="col-md-10 offset-md-1">
+            <div class="col-md-8 offset-md-2">
                 <form action="search" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="ch">
@@ -21,18 +21,19 @@
         </div>
     </div>
 
-<!--контейнер контента-->
-    <div class="container-fluid mt-1">
+    <!--контейнер контента-->
+    <div class="container-fluid mt-2">
         <div class="row">
 
-<!--  Меню слева  -->
+            <!--  Меню слева  -->
             <div class="col-md-2">
                 <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                     <div class="card-body">
                         <p class="fs-5">По жанрам</p>
-                        <div class="list-group">
+                        <div class="list-group my-div">
 
-                            <a href="/" class="list-group-item list-group-item-action" aria-current="true" th:classappend="${paramValue == ''} ? 'active' : ''">
+                            <a href="/" class="list-group-item list-group-item-action" aria-current="true"
+                               th:classappend="${paramValue == ''} ? 'active' : ''">
                                 Все
                             </a>
 
@@ -46,29 +47,47 @@
                 </div>
             </div>
 
-<!--   меню справа, сюда выводятся записи об играх  -->
+            <!--   меню справа, сюда выводятся записи об играх  -->
             <div class="col-md-10">
                 <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                     <div class="card-body">
-                        <p class="fs-3 text-center">Каталог игр</p>
+                        <p class="fs-3 text-center fw-bold">Каталог игр</p>
                         <div class="row">
 
                             <th:block th:if="${gamesSize > 0}">
-                                <div class="col-md-3 mb-3" th:each="gam:${games}">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <img th:src="@{'/img/game_img/'+${gam.image}}" width="100%">
-                                            <p class="fs-5 text-center" th:text="${gam.name}"></p>
-                                            <div class="row text-center">
-                                                <a th:href="@{'/game/'+${gam.id}}" class="btn my-color-gray col-md-6 offset-md-3 text-light">Подробнее</a>
+                                <div class="col-md-12 mb-3" th:each="gam:${games}">
+
+                                    <div class="card card-sh">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <img th:src="@{'/img/game_img/'+${gam.image}}"
+                                                         class="img-fluid mt-5">
+                                                    <div class="d-flex flex-row justify-content-center mt-3">
+                                                        <p class="fs-4 text-center fw-bold mx-2">Цена:</p>
+                                                        <p class="fs-4 text-center mx-2" th:text="${gam.price}"></p>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <a th:href="@{'/game/'+${gam.id}}"
+                                                           class="btn my-color-gray text-light col-md-8 fs-5">Подробнее</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p class="fs-5 text-center fw-bold" th:text="${gam.name}"></p>
+                                                    <p class="fs-5" th:text="${gam.description}"></p>
+                                                </div>
                                             </div>
+
+
                                         </div>
                                     </div>
+
                                 </div>
                             </th:block>
 
                             <th:block th:unless="${gamesSize > 0}">
-                                <p class="fs-4 text-center mt-4 text-success">Нет доступных для покупки игр в этом жанре</p>
+                                <p class="fs-4 text-center mt-4 text-success">Нет доступных для покупки игр в этом
+                                    жанре</p>
                             </th:block>
 
                         </div>
@@ -76,17 +95,35 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">Total Posts: <span th:text="${totalElements}"></span></div>
-                    <div class="col-md-5 offset-md-1">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Пред</a></li>
+                    <div class="col-md-4">Total Games: <span th:text="${totalElements}"></span></div>
+                    <div class="col-md-6">
+                        <th:block th:if="${totalPages > 1}">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"
+                                           th:href="@{'?pageNo='+${pageNo-1}}"
+                                           th:classappend="${isFirst}?'disabled':''">
+                                            Пред</a>
+                                    </li>
 
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"
+                                        th:each="i : ${#numbers.sequence(1, totalPages)}"
+                                        th:classappend="${pageNo + 1 == i} ? 'active' : '' ">
+                                        <a class="page-link"
+                                           th:href="@{'?pageNo='+${i-1}}"
+                                           th:text="${i}"></a>
+                                    </li>
 
-                                <li class="page-item"><a class="page-link" href="#">След</a></li>
-                            </ul>
-                        </nav>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           th:href="@{'?pageNo='+${pageNo+1}}"
+                                           th:classappend="${isLast}?'disabled':''">
+                                            След</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </th:block>
                     </div>
                 </div>
 

@@ -57,7 +57,7 @@ public class HomeController {
         m.addAttribute("posts", posts);
         m.addAttribute("postsSize", posts.size());
         m.addAttribute("postsNo", page.getNumber());
-        m.addAttribute("postsSize", pageSize);
+        m.addAttribute("pageSize", pageSize);
         m.addAttribute("totalElements", page.getTotalElements());
         m.addAttribute("totalPages", page.getTotalPages());
 

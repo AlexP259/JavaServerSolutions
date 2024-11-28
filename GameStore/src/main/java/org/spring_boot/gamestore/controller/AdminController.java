@@ -7,9 +7,11 @@ import org.spring_boot.gamestore.entity.User;
 import org.spring_boot.gamestore.repository.UserRepo;
 import org.spring_boot.gamestore.service.IGameService;
 import org.spring_boot.gamestore.service.IGenreService;
+import org.spring_boot.gamestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +36,8 @@ public class AdminController {
 
     @Autowired
     private IGameService gameService;
+    @Autowired
+    private UserService userService;
 
 
     @ModelAttribute
@@ -175,6 +179,28 @@ public class AdminController {
         return "admin/edit_game";
     }
 
+    @PostMapping("/updateGame")
+    public String updateGame(@ModelAttribute Game game, HttpSession session, @RequestParam("file") MultipartFile image){
+        Game updateGame = gameService.updateGame(game, image);
+        if(!ObjectUtils.isEmpty(updateGame)){
+            session.setAttribute("succMsg", "Игра обновлена успешно");
+        } else {
+            session.setAttribute("errorMsg", "Ошибка обновления игры");
+        }
+        return "redirect:/admin/editGame/" + game.getId();
+    }
+
+    @GetMapping("/users")
+    public String viewUsersList(Model m, @RequestParam(defaultValue = "") String ch){
+        List<User> users = null;
+        if(ch != null && ch.length() > 0){
+            users = userService.searchUsersByNameAndEmail(ch);
+        } else {
+            users = userService.getAllUsers();
+        }
+        m.addAttribute("users", users);
+        return "admin/users";
+    }
 }
 
 

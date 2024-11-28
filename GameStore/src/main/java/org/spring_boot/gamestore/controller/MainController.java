@@ -55,10 +55,12 @@ public class MainController {
         List<Game> games = page.getContent();
         m.addAttribute("games", games);
         m.addAttribute("gamesSize", games.size());
-        m.addAttribute("gamesNo", page.getNumber());
-        m.addAttribute("gamesSize", pageSize);
+        m.addAttribute("pageNo", page.getNumber());
+        m.addAttribute("pageSize", pageSize);
         m.addAttribute("totalElements", page.getTotalElements());
         m.addAttribute("totalPages", page.getTotalPages());
+        m.addAttribute("isLast", page.isLast());
+        m.addAttribute("isFirst", page.isFirst());
 
         return "index";
     }
@@ -83,19 +85,20 @@ public class MainController {
         return "auth/logout";
     }
 
-    @GetMapping("/invalid")
-    public String invalid() {
-        return "error";
-    }
-
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User user, HttpSession session) {
-        User u = userService.saveUser(user);
+        User existUser = userRepo.findByEmail(user.getEmail());
 
-        if (u != null) {
-            session.setAttribute("msg", "Пользователь зарегистрирован успешно");
+        if (existUser != null) {
+            session.setAttribute("errorMsg", "Пользователь с таким email уже существует");
         } else {
-            session.setAttribute("msg", "Регистрация пользователя не удалась");
+            User u = userService.saveUser(user);
+
+            if (u != null) {
+                session.setAttribute("succMsg", "Пользователь зарегистрирован успешно");
+            } else {
+                session.setAttribute("errorMsg", "Регистрация пользователя не удалась");
+            }
         }
 
         return "redirect:/register";

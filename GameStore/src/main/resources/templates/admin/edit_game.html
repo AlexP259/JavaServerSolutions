@@ -16,12 +16,12 @@
 
                     <th:block th:if="${session.succMsg}">
                         <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
-                        <th:block th:text="${@userService.removeSessionMessage()}"></th:block>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
                     </th:block>
 
                     <th:block th:if="${session.errorMsg}">
                         <p th:text="${session.errorMsg}" class="text-danger fw-bold text-center mt-4"></p>
-                        <th:block th:text="${@userService.removeSessionMessage()}"></th:block>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
                     </th:block>
 
                     <div class="card-body">
@@ -29,17 +29,15 @@
                             <input type="hidden" name="id" th:value="${game.id}">
                             <div class="mb-3">
                                 Введите название
-                                <input type="text" name="title" class="form-control" th:value="${game.name}">
+                                <input type="text" name="name" class="form-control" th:value="${game.name}">
                             </div>
                             <div class="mb-3">
                                 Введите описание
-                                <textarea name="content" cols="" rows="3" class="form-control">
-                                    [[${game.description}]]
-                                </textarea>
+                                <textarea name="description" cols="" rows="3" class="form-control">[[${game.description}]]</textarea>
                             </div>
                             <div class="mb-3">
                                 Жанр
-                                <select name="category" class="form-control">
+                                <select name="genre" class="form-control">
                                     <option>[[${game.genre}]]</option>
                                     <option th:each="g:${genres}" th:text="${g.name}"></option>
                                 </select>
@@ -48,7 +46,14 @@
                                 Загрузить изображение
                                 <input type="file" name="file" class="form-control">
                             </div>
-                            <button class="btn btn-primary col-md-12">Update</button>
+                            <div class="mb-3">
+                                <img th:src="@{'/img/game_img/'+${game.image}}" alt="" width="200">
+                            </div>
+                            <div class="mb-3">
+                                Введите цену
+                                <input type="number" name="price" class="form-control" th:value="${game.price}">
+                            </div>
+                            <button class="btn btn-primary col-md-12">Обновить</button>
                         </form>
                     </div>
 

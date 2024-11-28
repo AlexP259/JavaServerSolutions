@@ -12,7 +12,6 @@ public class SessionManagementService implements ISessionManagementService{
     public void removeSessionMessage() {
         HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest().getSession();
         session.removeAttribute("msg");
-        session.removeAttribute("msg");
         session.removeAttribute("succMsg");
         session.removeAttribute("errorMsg");
     }

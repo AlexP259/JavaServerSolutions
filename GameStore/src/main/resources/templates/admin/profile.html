@@ -6,13 +6,35 @@
 </head>
 <body>
 <div class="text-center" th:fragment="forwarded_content">
-  <h1>Admin Profile Page</h1>
+  <h1>Ваш профиль</h1>
 
-    <h4>Name: <span th:text="${user.name}"></span></h4>
-    <h4>Email: <span th:text="${user.email}"></span></h4>
-    <h4>Role: <span th:text="${user.role}"></span></h4>
+    <div class="col-md-6 card-sh m-5 p-5 mx-auto">
+        <h4>Имя: <span th:text="${user.name}"></span></h4>
+        <h4>Email: <span th:text="${user.email}"></span></h4>
+        <h4>Роль: <span th:text="${user.role}"></span></h4>
+    </div>
 
-    <a th:href="@{/user/signout}">Выйти</a>
+    <div class="mb-5">
+
+        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Выйти</button>
+
+        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <h2 class="offcanvas-title mx-auto" id="offcanvasTopLabel">
+                    Вы хотите выйти из учетной записи?
+                </h2>
+                <div class="d-flex justify-content-evenly mt-5">
+                    <a th:href="@{/logout}" class="btn btn-success">Да, выйти</a>
+                    <a th:href="@{/admin/profile}" class="btn btn-danger">Нет, остаться</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 </body>
 </html>
