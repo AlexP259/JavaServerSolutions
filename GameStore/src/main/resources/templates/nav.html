@@ -35,8 +35,11 @@
           <li class="nav-item" th:if="${user.role == 'ROLE_ADMIN'}">
             <a class="nav-link" th:href="@{/admin/}">Панель админа</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/signout}">Выйти</a>
+          <li class="nav-item" th:if="${user.role == 'ROLE_ADMIN'}">
+            <a class="nav-link active" aria-current="page" th:href="@{/admin/signout}">Выйти</a>
+          </li>
+          <li class="nav-item" th:if="${user.role == 'ROLE_USER'}">
+            <a class="nav-link active" aria-current="page" th:href="@{/user/signout}">Выйти</a>
           </li>
         </th:block>
 

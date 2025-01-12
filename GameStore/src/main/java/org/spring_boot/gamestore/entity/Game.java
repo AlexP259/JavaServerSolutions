@@ -3,6 +3,8 @@ package org.spring_boot.gamestore.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Game {
@@ -16,11 +18,30 @@ public class Game {
     @Column(length = 2000)
     private String description;
 
+    private String platform;
+
     private String genre;
 
-    private String image;
+    @Column(length = 2000)
+    private String systemRequirements;
+
+    private boolean pg18;
+
+    @ElementCollection
+    @CollectionTable(name = "game_images", joinColumns = @JoinColumn(name = "game_id"))
+    @Column(name = "image_name")
+    private List<String> images;
 
     private BigDecimal price;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_purchased_games",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> user;
+
 
 
     public int getId() {
@@ -47,6 +68,14 @@ public class Game {
         this.description = description;
     }
 
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
     public String getGenre() {
         return genre;
     }
@@ -55,12 +84,28 @@ public class Game {
         this.genre = genre;
     }
 
-    public String getImage() {
-        return image;
+    public String getSystemRequirements() {
+        return systemRequirements;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setSystemRequirements(String systemRequirements) {
+        this.systemRequirements = systemRequirements;
+    }
+
+    public boolean isPg18() {
+        return pg18;
+    }
+
+    public void setPg18(boolean pg18) {
+        this.pg18 = pg18;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public BigDecimal getPrice() {
@@ -71,14 +116,18 @@ public class Game {
         this.price = price;
     }
 
+
     @Override
     public String toString() {
         return "Game{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", platform='" + platform + '\'' +
                 ", genre='" + genre + '\'' +
-                ", image='" + image + '\'' +
+                ", systemRequirements='" + systemRequirements + '\'' +
+                ", pg18=" + pg18 +
+                ", images=" + images +
                 ", price=" + price +
                 '}';
     }

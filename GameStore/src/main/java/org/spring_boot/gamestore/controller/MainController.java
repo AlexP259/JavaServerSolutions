@@ -43,15 +43,25 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String index(Model m, @RequestParam(value = "genre", defaultValue = "") String genre, @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize){
+    public String index(Model m,
+                        @RequestParam(name = "genre", defaultValue = "") String genre,
+                        @RequestParam(name = "ch", required = false, defaultValue = "") String ch,
+                        @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+                        @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize,
+                        @RequestParam(name = "platform", required = false, defaultValue = "") String platform,
+                        @RequestParam(name = "pg18", required = false, defaultValue = "false") boolean pg18
+    ){
+
+//        передаем жанры для меню слева
         List<Genre> genres = genreService.getAllGenres();
         m.addAttribute("paramValue", genre);
         m.addAttribute("genres", genres);
+        m.addAttribute("platformValue", platform);
+        m.addAttribute("pg18Value", pg18);
+        m.addAttribute("searchValue", ch);
 
-//        List<Game> selGames = gameService.getAllSelectGames(genre);   //вывод игр через поиск
-//        m.addAttribute("games", games);
-
-        Page<Game> page = gameService.getAllGamePagination(pageNo, pageSize, genre);
+//        вывод игр справа
+        Page<Game> page = gameService.getAllGamePagination(pageNo, pageSize, ch, genre, platform, pg18);
         List<Game> games = page.getContent();
         m.addAttribute("games", games);
         m.addAttribute("gamesSize", games.size());
@@ -80,11 +90,6 @@ public class MainController {
         return "auth/login";
     }
 
-    @GetMapping("/signout")
-    public String logout(){
-        return "auth/logout";
-    }
-
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User user, HttpSession session) {
         User existUser = userRepo.findByEmail(user.getEmail());
@@ -109,16 +114,6 @@ public class MainController {
         Game game = gameService.getGameById(id);
         m.addAttribute("game", game);
         return "view_game";
-    }
-
-    @GetMapping("/search")
-    public String searchGame(@RequestParam String ch, Model m){
-        List<Game> searchGames = gameService.searchGame(ch);
-        m.addAttribute("games", searchGames);
-
-        List<Genre> genres = genreService.getAllGenres();
-        m.addAttribute("genres", genres);
-        return "index";
     }
 
 }

@@ -6,13 +6,83 @@
 </head>
 <body>
 <div th:fragment="forwarded_content" class="my-div">
-  <div class="container card-sh">
-      <div class="col-md-12 p-5">
-          <h3 th:text="${game.name}" class="text-center mb-5"></h3>
-          <img th:src="@{'/img/game_img/'+${game.image}}" class="imageGame" width="100%">
-          <div th:text="${game.description}"></div>
+  <div class="container-game card-sh">
+      <div class="row p-5">
+
+          <div class="col-md-6">
+              <div id="carouselExampleIndicators" class="carousel slide mt-5" >
+                  <div class="carousel-indicators">
+                      <th:block th:each="img, imgIterStat : ${game.images}">
+                          <button type="button"
+                                  th:attr="data-bs-target='#carouselExampleIndicators',
+                                  data-bs-slide-to=${imgIterStat.index},
+                                  aria-label='Слайд ' + (${imgIterStat.index + 1})"
+                                  th:classappend ="${imgIterStat.first} ? 'active' : ''"
+                                  th:aria-current="${imgIterStat.index == 0} ? 'true' : 'false'"
+                          ></button>
+                      </th:block>
+                  </div>
+                  <div class="carousel-inner">
+                      <div th:each="img, imgIterStat : ${game.images}"
+                           class="carousel-item"
+                           th:classappend ="${imgIterStat.first} ? 'active' : ''">
+                          <img th:src="@{'/img/game_img/' + ${img}}" class="d-block w-100">
+                      </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" th:attr="data-bs-target='#carouselExampleIndicators'" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" th:attr="data-bs-target='#carouselExampleIndicators'" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                  </button>
+              </div>
+          </div>
+
+          <div class="col-md-6">
+              <div>
+                  <p class="fs-3 text-center fw-bold" th:text="${game.name}"></p>
+                  <p class="fs-5" th:text="${game.description}"></p>
+              </div>
+              <div>
+                  <p class="fs-5 text-center fw-bold mb-0">Системные требования</p>
+                  <p class="fs-5" th:text="${game.systemRequirements}"></p>
+              </div>
+
+              <th:block th:if="${session.succMsg}">
+                  <p class="text-center text-success fs-4" th:text="${session.succMsg}"></p>
+                  <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+              </th:block>
+
+              <th:block th:if="${session.errorMsg}">
+                  <p class="text-center text-danger fs-4" th:text="${session.errorMsg}"></p>
+                  <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+              </th:block>
+
+              <div class="d-flex flex-row justify-content-evenly">
+                  <div>
+                      <p class="fs-5 fw-bold mb-0">Жанр:</p>
+                      <p class="fs-5" th:text="${game.genre}"></p>
+                  </div>
+                  <div>
+                      <p class="fs-5 fw-bold mb-0">Для лиц от 18-ти лет:</p>
+                      <p class="fs-5" th:text="${game.pg18} ? 'Да' : 'Нет'"></p>
+                  </div>
+                  <div>
+                      <p class="fs-5 fw-bold mb-0">Цена:</p>
+                      <p class="fs-5" th:text="${game.price}"></p>
+                  </div>
+                  <div>
+                      <a th:href="@{'/user/buyTheGame/' + ${user.id} + '/' + ${game.id}}" class="btn text-light my-color-gray fs-5">Купить</a>
+                  </div>
+              </div>
+          </div>
+
       </div>
   </div>
 </div>
 </body>
 </html>
+
+

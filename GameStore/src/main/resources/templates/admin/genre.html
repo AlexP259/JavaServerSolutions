@@ -27,8 +27,8 @@
                     <div class="card-body">
                         <form action="/admin/saveGenre" method="post">
                             <div class="mb-3">
-                                Введите название жанра
-                                <input type="text" name="name" class="form-control">
+                                <label for="name">Введите название жанра</label>
+                                <input type="text" name="name" class="form-control" id="name">
                             </div>
                             <button class="btn btn-primary col-md-12">Сохранить</button>
                         </form>
@@ -39,7 +39,7 @@
 <!--    Правая колонка     -->
             <div class="col-md-8">
                 <div class="card card-sh">
-                    <div class="card-header">Список жанров</div>
+                    <div class="card-header text-center">Список жанров</div>
 
                     <div class="card-body">
                         <table class="table">

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+  <div class="container">
+      <div class="row">
+
+          <div class="col-md-4">
+              <div class="card card-sh">
+                  <div class="card-header text-center">Добавить новый метод пополнения</div>
+
+                  <th:block th:if="${session.succMsg}">
+                      <p class="text-center text-success fs-4" th:text="${session.succMsg}"></p>
+                      <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                  </th:block>
+
+                  <th:block th:if="${session.errorMsg}">
+                      <p class="text-center text-danger fs-4" th:text="${session.errorMsg}"></p>
+                      <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                  </th:block>
+
+                  <div class="card-body">
+                      <form action="/user/addMethodOfReplenishment" method="post">
+                          <input type="hidden" name="usersEWalletId" th:value="${user.eWallet.id}">
+                          <div class="mb-3">
+                              Платежная система:
+                              <select name="paymentSystem" class="form-control" required>
+                                  <option selected disabled hidden>--Выбрать</option>
+                                  <option th:each="system : ${paymentSystems}"
+                                          th:text="${system.displayName}"
+                                          th:value="${system.name()}"
+                                  >/option>
+                              </select>
+                          </div>
+                          <div class="mb-3">
+                              Номер карты:
+                              <input type="tel" name="cardNumber" maxlength="16" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                              Срок действия:
+                              <input type="date" name="validityPeriod" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                              Код безопасности:
+                              <input type="tel" name="cvv" maxlength="3" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                              Имя владельца карты:
+                              <input type="text" name="firstName" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                              Фамилия владельца карты:
+                              <input type="text" name="lastName" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                              Город проживания владельца карты:
+                              <input type="text" name="city" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                              <button class="btn btn-primary col-md-12">Добавить карту</button>
+                          </div>
+                      </form>
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="col-md-8">
+              <div class="card card-sh">
+                  <div class="card-header text-center">Ваши методы пополнения кошелька</div>
+
+                  <th:block th:if="${session.succMsg2}">
+                      <p class="text-center text-success fs-4" th:text="${session.succMsg2}"></p>
+                      <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                  </th:block>
+
+                  <th:block th:if="${session.errorMsg2}">
+                      <p class="text-center text-danger fs-4" th:text="${session.errorMsg2}"></p>
+                      <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                  </th:block>
+
+                  <div class="card-body">
+                      <table>
+                          <tr>
+                              <th scope="col">Платежная система</th>
+                              <th scope="col">Номер карты</th>
+                              <th scope="col">Срок действия</th>
+                              <th scope="col">Cvv</th>
+                              <th scope="col">Имя</th>
+                              <th scope="col">Фамилия</th>
+                              <th scope="col">Город</th>
+                              <th scope="col">Действие</th>
+                          </tr>
+                          <tr th:each="method : ${user.eWallet.methodOfReplenishment}">
+                              <td th:text="${method.paymentSystem}"></td>
+                              <td th:text="${method.cardNumber}"></td>
+                              <td th:text="${method.validityPeriod}"></td>
+                              <td th:text="${method.cvv}"></td>
+                              <td th:text="${method.firstName}"></td>
+                              <td th:text="${method.lastName}"></td>
+                              <td th:text="${method.city}"></td>
+                              <td>
+                                  <a th:href="@{'/user/deleteMethodOfReplenishment/' + ${method.id}}">Удалить</a>
+                              </td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+</div>
+</body>
+</html>

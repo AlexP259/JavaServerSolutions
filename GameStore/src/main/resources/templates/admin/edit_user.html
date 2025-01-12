@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-2">
+
+                <div class="card card-sh">
+
+                    <div class="card-header text-center fs-4">Редактировать пользователя</div>
+
+                    <th:block th:if="${session.succMsg}">
+                        <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p th:text="${session.errorMsg}" class="text-danger fw-bold text-center mt-4"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <div class="card-body">
+                        <form action="/admin/updateUser" method="post">
+                            <input type="hidden" name="id" th:value="${editUser.id}">
+                            <div class="mb-3">
+                                <p>
+                                    Не заблокирован:
+                                    <input type="checkbox" name="non_lock" th:checked="${editUser.accountNonLocked}">
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <p>
+                                    ФИО:
+                                    <input type="text" name="name" class="form-control" th:value="${editUser.name}">
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <p>
+                                    Email:
+                                    <input type="email" name="email" class="form-control" th:value="${editUser.email}">
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <p>
+                                    Пароль:
+                                    <input type="password" name="password" class="form-control">
+                                </p>
+                            </div>
+                            <p>
+                                <button class="btn btn-primary col-md-12">Обновить</button>
+                            </p>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

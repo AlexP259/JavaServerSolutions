@@ -1,10 +1,14 @@
-.my-div>.active{
+.my-div>.active, .btn-check:checked{
     background: #a8a8a8 !important;
     border: 2px solid #ff6868;
 }
 
 .my-color-gray{
     background: #a8a8a8;
+}
+
+a.my-color-gray:hover, button.my-color-gray:hover{
+    background: #474747;
 }
 
 .image{
@@ -50,6 +54,10 @@
     margin-right: 20px; /* Отодвигает элемент вправо */
 }
 
+.container-game{
+    width: 95%;
+    margin: 3vh auto;
+}
 
 
 

@@ -15,12 +15,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 
@@ -36,6 +30,7 @@ public class AdminController {
 
     @Autowired
     private IGameService gameService;
+
     @Autowired
     private UserService userService;
 
@@ -50,11 +45,13 @@ public class AdminController {
     }
 
     @GetMapping("/profile")
-    public String profile(Principal principal, Model model) {
-        String email = principal.getName();
-        User user = userRepo.findByEmail(email);
-        model.addAttribute("user", user);
+    public String profile() {
         return "admin/profile";
+    }
+
+    @GetMapping("/signout")
+    public String logout(){
+        return "auth/logout";
     }
 
     @GetMapping("/")
@@ -62,6 +59,8 @@ public class AdminController {
         return "admin/index";
     }
 
+
+    //    ************** Добавить игру **************
     @GetMapping("/loadAddGame")
     public String loadAddGame(Model m){
         List<Genre> genres = genreService.getAllGenres();
@@ -69,6 +68,19 @@ public class AdminController {
         return "admin/add_game";
     }
 
+    @PostMapping("/saveGame")
+    public String saveGame(@ModelAttribute Game game, HttpSession session, @RequestParam("files[]")MultipartFile[] images){
+        Game updateGame = gameService.saveGame(game, images);
+        if(!ObjectUtils.isEmpty(updateGame)){
+            session.setAttribute("succMsg", "Игра сохранена успешно");
+        } else {
+            session.setAttribute("errorMsg", "Ошибка сохранения игры");
+        }
+        return "redirect:/admin/loadAddGame";
+    }
+    //    ****************************************
+
+    //    ************** Добавить жанр **************
     @GetMapping("/genre")
     public String genres(Model m){
         m.addAttribute("genres", genreService.getAllGenres());
@@ -126,38 +138,19 @@ public class AdminController {
         }
         return "redirect:/admin/genre";
     }
+    //    ****************************************
 
-    @PostMapping("/saveGame")
-    public String saveGame(@ModelAttribute Game game, HttpSession session, @RequestParam("file")MultipartFile image) throws IOException {
-        String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
-        game.setImage(imageName);
-
-        Game saveGame = gameService.saveGame(game);
-        if(saveGame != null){
-            String saveFile = new File("src/main/resources/static/img/").getAbsolutePath();
-            System.out.println(saveFile);
-            if(!image.isEmpty()){
-                Path path = Paths.get(saveFile + File.separator + "game_img" + File.separator + image.getOriginalFilename());
-                System.out.println(path);
-
-                Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            }
-            session.setAttribute("succMsg", "Игра сохранена успешно");
-        } else {
-            session.setAttribute("errorMsg", "Ошибка сохранения игры");
-        }
-        return "redirect:/admin/loadAddGame";
-    }
-
+    //    ************** Игры **************
     @GetMapping("/games")
     public String loadViewGame(Model m, @RequestParam(defaultValue = "") String ch){
         List<Game> games = null;
-        if(ch != null && ch.length() > 0){
+        if(ch != null && !ch.isEmpty()){
             games = gameService.searchGame(ch);
         } else {
             games =  gameService.getAllGames();
         }
         m.addAttribute("games", games);
+        System.out.println(games);
         return "admin/games";
     }
 
@@ -180,8 +173,8 @@ public class AdminController {
     }
 
     @PostMapping("/updateGame")
-    public String updateGame(@ModelAttribute Game game, HttpSession session, @RequestParam("file") MultipartFile image){
-        Game updateGame = gameService.updateGame(game, image);
+    public String updateGame(@ModelAttribute Game game, HttpSession session, @RequestParam("files[]")MultipartFile[] images){
+        Game updateGame = gameService.updateGame(game, images);
         if(!ObjectUtils.isEmpty(updateGame)){
             session.setAttribute("succMsg", "Игра обновлена успешно");
         } else {
@@ -189,9 +182,70 @@ public class AdminController {
         }
         return "redirect:/admin/editGame/" + game.getId();
     }
+    //    ****************************************
 
+    //    ************** Пользователи **************
     @GetMapping("/users")
     public String viewUsersList(Model m, @RequestParam(defaultValue = "") String ch){
+        List<User> users = null;
+        if(ch != null && ch.length() > 0){
+            users = userService.searchUsersByNameAndEmail(ch);
+        } else {
+            users = userService.getUsersByRole("ROLE_USER");
+        }
+        m.addAttribute("users", users);
+        return "admin/users";
+    }
+
+    @GetMapping("/editUser/{id}")
+    public String editUser(@PathVariable int id, Model m){
+        m.addAttribute("editUser", userService.getUserById(id));
+        return "admin/edit_user";
+    }
+
+//    @PostMapping("/updateUser")
+//    public String updateUser(@ModelAttribute User editUser, HttpSession session){
+//        User updateUser =  userService.updateUser(editUser);
+//        if(!ObjectUtils.isEmpty(updateUser)){
+//            session.setAttribute("succMsg", "Пользователь обновлен успешно");
+//        } else {
+//            session.setAttribute("errorMsg", "Ошибка обновления пользователя");
+//        }
+//        return "redirect:/admin/editUser/" + editUser.getId();
+//    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(
+            @RequestParam int id,
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam boolean non_lock,
+            HttpSession session){
+        User updateUser =  userService.updateUser(id, name, email, password, non_lock);
+        if(!ObjectUtils.isEmpty(updateUser)){
+            session.setAttribute("succMsg", "Пользователь обновлен успешно");
+        } else {
+            session.setAttribute("errorMsg", "Ошибка обновления пользователя");
+        }
+        return "redirect:/admin/editUser/" + id;
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable int id, HttpSession session){
+        Boolean deleteUser = userService.deleteUser(id);
+        if(deleteUser){
+            session.setAttribute("succMsg", "Пользователь удален успешно");
+        } else {
+            session.setAttribute("errorMsg", "Ошибка удаления пользователя");
+        }
+        return "redirect:/admin/users";
+    }
+    //    ****************************************
+
+    //    ************** Добавить админа **************
+    @GetMapping("/loadAddAdmin")
+    public String loadAddAdmin(Model m, @RequestParam(defaultValue = "") String ch){
         List<User> users = null;
         if(ch != null && ch.length() > 0){
             users = userService.searchUsersByNameAndEmail(ch);
@@ -199,8 +253,51 @@ public class AdminController {
             users = userService.getAllUsers();
         }
         m.addAttribute("users", users);
-        return "admin/users";
+        return "admin/add_admin";
     }
+
+    @PostMapping("/saveAdmin")
+    public String saveAdmin(@ModelAttribute("admin") User admin, HttpSession session) {
+        User existAdmin = userRepo.findByEmail(admin.getEmail());
+
+        if (existAdmin != null) {
+            session.setAttribute("errorMsg", "Пользователь с таким email уже существует");
+        } else {
+            User u = userService.saveAdmin(admin);
+
+            if (u != null) {
+                session.setAttribute("succMsg", "Администратор зарегистрирован успешно");
+            } else {
+                session.setAttribute("errorMsg", "Регистрация администратора не удалась");
+            }
+        }
+
+        return "redirect:/admin/loadAddAdmin";
+    }
+
+    @GetMapping("/makeAdmin/{id}")
+    public String makeAdmin(@PathVariable int id){
+        User user = userRepo.findById(id).orElse(null);
+        if (user != null) {
+            user.setRole("ROLE_ADMIN");
+            userRepo.save(user);
+        }
+        return "redirect:/admin/loadAddAdmin";
+    }
+
+    @GetMapping("/unmakeAdmin/{id}")
+    public String unmakeAdmin(@PathVariable int id){
+        User user = userRepo.findById(id).orElse(null);
+        if (user != null) {
+            user.setRole("ROLE_USER");
+            userRepo.save(user);
+        }
+        return "redirect:/admin/loadAddAdmin";
+    }
+    //    ****************************************
+
+
+
 }
 
 

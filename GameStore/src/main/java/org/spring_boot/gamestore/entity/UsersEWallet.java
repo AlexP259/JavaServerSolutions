@@ -19,15 +19,17 @@ public class UsersEWallet {
     @OneToOne(mappedBy = "eWallet", cascade = CascadeType.ALL)
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "ewallet_replenishment",
-            joinColumns = @JoinColumn(name = "usersewallet_id"),
-            inverseJoinColumns = @JoinColumn(name = "methodOfReplenishment_id")
-    )
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEWallet")
     private List<MethodOfReplenishment> methodOfReplenishment;
 
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 
     public int getId() {
         return id;
@@ -56,8 +58,7 @@ public class UsersEWallet {
     @Override
     public String toString() {
         return  "ID = " + id +
-                ", баланс = " + balance +
-                ", пополнение = " + methodOfReplenishment
+                ", баланс = " + balance
                 ;
     }
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::layout(~{::forwarded_content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="forwarded_content">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card card-sh">
+                    <div class="card-header text-center">Зарегистрировать админа</div>
+
+                    <th:block th:if="${session.succMsg}">
+                        <p class="text-center text-success fs-4" th:text="${session.succMsg}"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-center text-danger fs-4" th:text="${session.errorMsg}"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <div class="card-body">
+                        <form action="/admin/saveAdmin" method="post">
+                            <div class="mb-3">
+                                <label for="name">ФИО:</label>
+                               <input type="text" name="name" class="form-control" id="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email">Email:</label>
+                                <input type="email" name="email" class="form-control" id="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="pass">Пароль:</label>
+                                <input type="password" name="password" class="form-control" id="pass">
+                            </div>
+                            <p>
+                                <button class="btn btn-primary col-md-12">Регистрация</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card card-sh">
+
+                    <div class="card-header text-center">Назначить пользователя админом</div>
+
+                    <!--  Блок строки поиска  -->
+                    <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <form action="/admin/loadAddAdmin" method="get">
+                                    <div class="input-group">
+                                        <input type="text" name="ch" class="form-control">
+                                        <button class="btn btn-light text-dark ms-3">Поиск</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Роль</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                            <tr th:each="u, c : ${users}">
+                                <td th:text="${u.id}"></td>
+                                <td th:text="${u.name}"></td>
+                                <td th:text="${u.email}"></td>
+                                <td th:text="${u.role}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/makeAdmin/'+${u.id}}" th:unless="${u.role} == 'ROLE_ADMIN'" class="btn btn-sm btn-primary">Назначить админом</a>
+                                    <a th:href="@{'/admin/unmakeAdmin/'+${u.id}}" th:if="${u.role} == 'ROLE_ADMIN'" class="btn btn-sm btn-danger">Снять права админа</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

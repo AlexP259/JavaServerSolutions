@@ -10,9 +10,85 @@ import java.util.List;
 public interface GameRepo extends JpaRepository<Game, Integer> {
     List<Game> findByGenre(String genre);
 
-    List<Game> findByNameContainingIgnoreCaseOrGenreContainingIgnoreCase(String ch, String ch2);
+//    это для админского поиска по пользователям
+    List<Game> findByNameContainingIgnoreCaseOrGenreContainingIgnoreCase(String ch, String genre);
 
+
+    // Поиск по названию, жанру, платформе включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndGenreAndPlatform(Pageable pageable, String ch, String genre, String platform);
+
+    // Поиск по названию и жанру включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndGenre(Pageable pageable, String ch, String genre);
+
+    // Поиск по названию и платформе включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndPlatform(Pageable pageable, String ch, String platform);
+
+    // Поиск только по названию включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCase(Pageable pageable, String ch);
+
+    // Поиск по жанру и платформе включая игры с рейтингом 18+
+    Page<Game> findByGenreAndPlatform(Pageable pageable, String genre, String platform);
+
+    // Поиск только по жанру включая игры с рейтингом 18+
     Page<Game> findByGenre(Pageable pageable, String genre);
+
+    // Поиск только по платформе включая игры с рейтингом 18+
+    Page<Game> findByPlatform(Pageable pageable, String platform);
+
+
+
+    // Поиск по названию, жанру и платформе не включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndGenreAndPlatformAndPg18False(Pageable pageable, String ch, String genre, String platform);
+
+    // Поиск по названию и жанру не включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndGenreAndPg18False(Pageable pageable, String ch, String genre);
+
+    // Поиск по названию и платформе не включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndPlatformAndPg18False(Pageable pageable, String ch, String platform);
+
+    // Поиск только по названию не включая игры с рейтингом 18+
+    Page<Game> findByNameContainingIgnoreCaseAndPg18False(Pageable pageable, String ch);
+
+    // Поиск по жанру и платформе не включая игры с рейтингом 18+
+    Page<Game> findByGenreAndPlatformAndPg18False(Pageable pageable, String genre, String platform);
+
+    // Поиск только по жанру не включая игры с рейтингом 18+
+    Page<Game> findByGenreAndPg18False(Pageable pageable, String genre);
+
+    // Поиск только по платформе не включая игры с рейтингом 18+
+    Page<Game> findByPlatformAndPg18False(Pageable pageable, String platform);
+
+    // Поиск не включая игры с рейтингом 18+
+    Page<Game> findByPg18False(Pageable pageable);
+
+
+
+
 
     Page<Game> findAllBy(Pageable pageable);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

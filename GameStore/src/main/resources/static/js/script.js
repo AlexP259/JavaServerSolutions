@@ -1,11 +1,11 @@
 "use strict";
 
-// грязно домогаемся до кнопки в навбаре
+// -------------------------------Открытие и сокрытие поиска---------------------------------------
+// Это работает для каталога игр, для страниц с панели админа: игры, пользователи, добавить админа
+// домогаемся до кнопки в навбаре
 let searchButton = document.querySelector('#toggleSearchButton');
-
 // получаем блок в котором находится поиск
 let searchBlock = document.querySelector('.searchBlock');
-
 // функция проверит есть ли у элемента класс сырчХыдден
 function showAndHideSearch(){
     // если класс СырчХыддэн есть, то убираем его, появляется поиск, а на кнопке пишем "скрыть поиск"
@@ -18,5 +18,4 @@ function showAndHideSearch(){
         searchButton.textContent = 'Показать поиск';
     }
 }
-
 searchButton.addEventListener('click', showAndHideSearch);

@@ -4,10 +4,10 @@ import org.spring_boot.gamestore.entity.Game;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 public interface IGameService {
-    public Game saveGame(Game game);
 
     public List<Game> getAllGames();
 
@@ -19,7 +19,18 @@ public interface IGameService {
 
     public List<Game> searchGame(String ch);
 
-    public Page<Game> getAllGamePagination(Integer pageNo, Integer pageSize, String genre);
+    public Page<Game> getAllGamePagination(Integer pageNo, Integer pageSize, String ch, String genre, String platform, boolean pg18);
 
-    public Game updateGame(Game game, MultipartFile image);
+    Game saveGame(Game game, MultipartFile[] images);
+
+    Game updateGame(Game game, MultipartFile[] images);
+
+    List<String> createListPathsImages(MultipartFile[] images, String platform, String gameName, List<String> pathsOldImages);
+
+    void createDirForImages(MultipartFile[] images, String platform, String gameName, List<String> pathsOldImages);
+
+    void deleteOldPathsAndImages(List<String> pathsOldImages, List<String> newPaths);
+
+    void deleteEmptyDirectory(File dir);
+
 }

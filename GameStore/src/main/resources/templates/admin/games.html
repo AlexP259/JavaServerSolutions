@@ -8,11 +8,10 @@
 <div th:fragment="forwarded_content">
 
 
-
-    <div class="container mt-4">
+    <div class="container p-3 mb-4">
         <div class="card card-sh">
             <div class="card-header text-center p-0">
-                <p class="fs-3 mt-3">Список игр</p>
+                <p class="fs-4 mt-3">Список игр</p>
 
                 <th:block th:if="${session.succMsg}">
                     <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
@@ -24,20 +23,20 @@
                     <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
                 </th:block>
 
-                <!--  Блок строки поиска  -->
-                <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
-                    <div class="row">
-                        <div class="col-md-8 offset-md-2">
-                            <form action="/admin/games" method="get">
-                                <div class="input-group">
-                                    <input type="text" name="ch" class="form-control">
-                                    <button class="btn btn-light text-dark ms-3">Поиск</button>
-                                </div>
-                            </form>
-                        </div>
+            </div>
+
+            <!--  Блок строки поиска  -->
+            <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form action="/admin/games" method="get">
+                            <div class="input-group">
+                                <input type="text" name="ch" class="form-control">
+                                <button class="btn btn-light text-dark ms-3">Поиск</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
             </div>
 
             <div class="card-body">
@@ -46,22 +45,26 @@
                         <th scope="col">Номер</th>
                         <th scope="col">Изображение</th>
                         <th scope="col">Название</th>
+                        <th scope="col">Платформа</th>
                         <th scope="col">Жанр</th>
                         <th scope="col">Цена</th>
                         <th scope="col">Действие</th>
                     </tr>
                     <tr th:each="g, c : ${games}">
                         <th th:text="${c.count}"></th>
-                        <td><img th:src="@{'/img/game_img/'+${g.image}}" width="100" alt=""></td>
+                        <td><img th:if="${g.images.size() > 0}" th:src="@{'/img/game_img/'+${g.images.getFirst()}}" width="100"></td>
                         <td th:text="${g.name}"></td>
+                        <td th:text="${g.platform}"></td>
                         <td th:text="${g.genre}"></td>
                         <td th:text="${g.price}"></td>
                         <td>
-                            <a th:href="@{'/admin/editGame/'+${g.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+<!--                            <a th:href="@{'/admin/editGame/'+${g.id}}" class="btn btn-sm btn-primary">Редактировать</a>-->
+                            <a th:href="@{/admin/editGame/{id}(id=${g.id})}" class="btn btn-sm btn-primary">Редактировать игру</a>
                             <a th:href="@{'/admin/deleteGame/'+${g.id}}" class="btn btn-sm btn-danger">Удалить</a>
                         </td>
                     </tr>
                 </table>
+                <th:block ></th:block>
             </div>
 
         </div>

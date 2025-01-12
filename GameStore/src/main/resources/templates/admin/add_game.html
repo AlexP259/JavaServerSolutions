@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:fragment="forwarded_content">
-    <div class="container">
+    <div class="container mb-4">
         <div class="row">
             <div class="col-md-6 offset-md-3">
 
@@ -36,15 +36,35 @@
                                 <textarea name="description" cols="" rows="3" class="form-control"></textarea>
                             </div>
                             <div class="mb-3">
-                                Жанр
-                                <select name="genre" class="form-control">
-                                    <option hidden="hidden">--выбрать</option>
-                                    <option th:each="g:${genres}" th:text="${g.name}"></option>
+                                Выберите платформу
+                                <select name="platform" class="form-control" required id="platformSelect">
+                                    <option value="" hidden="hidden" disabled selected>--выбрать</option>
+                                    <option value="Windows">Windows</option>
+                                    <option>PlayStation 3</option>
+                                    <option>PlayStation 4</option>
+                                    <option>Xbox 360</option>
+                                    <option>Xbox One</option>
+                                    <option>Nintendo Switch</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                Загрузить изображение
-                                <input type="file" name="image" class="form-control">
+                                Жанр
+                                <select name="genre" class="form-control" required>
+                                    <option value="" hidden="hidden" disabled selected>--выбрать</option>
+                                    <option th:each="g:${genres}" th:text="${g.name}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3" id="systemRequirementsDiv">
+                                Введите системные требования
+                                <textarea name="systemRequirements" id="systemRequir" cols="" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                Игра с возрастным ограничением PG-18
+                                <input type="checkbox" name="pg18">
+                            </div>
+                            <div class="mb-3">
+                                Загрузить изображения
+                                <input type="file" name="files[]" class="form-control" multiple>
                             </div>
                             <div class="mb-3">
                                 Введите цену
@@ -59,6 +79,8 @@
             </div>
         </div>
     </div>
+
+    <script src="/js/script_for_add_edit_game.js"></script>
 </div>
 </body>
 </html>

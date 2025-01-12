@@ -44,7 +44,10 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(Model m, @RequestParam(value = "category", defaultValue = "") String category, @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize){
+    public String index(Model m,
+                        @RequestParam(value = "category", defaultValue = "") String category,
+                        @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+                        @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize){
         List<Category> categories = categoryService.getAllCategory();
         m.addAttribute("paramValue", category);
         m.addAttribute("categories", categories);

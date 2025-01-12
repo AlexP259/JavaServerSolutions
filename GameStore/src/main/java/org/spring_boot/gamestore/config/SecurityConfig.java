@@ -40,9 +40,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/**", "/signin", "/register","/saveUser", "/about", "/item").permitAll()
-                                .requestMatchers("/user/**").authenticated()
-                                .requestMatchers("/admin/**").authenticated()
+                                .requestMatchers("/","/signin","/register","/saveUser","/about").permitAll()
+                                .requestMatchers("/user/**","/admin/**", "/game/**").authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form
@@ -60,7 +59,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer configureWebSecurity(){
-        return (web) -> web.ignoring().requestMatchers("/img/**", "/css/**");
+        return (web) -> web.ignoring().requestMatchers("/img/**", "/css/**", "/js/**");
     }
 }
 

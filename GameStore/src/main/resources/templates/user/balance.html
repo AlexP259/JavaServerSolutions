@@ -5,20 +5,50 @@
     <title>Title</title>
 </head>
 <body>
-<div class="text-center" th:fragment="forwarded_content">
-    <h1>Balance Page</h1>
-    <div class="col-md-4 card-sh m-5 p-5 mx-auto">
-        <form action="/user/saveBalance" method="post">
-            <input type="number" name="money" step="0.01" class="form-control mb-5">
+<div th:fragment="forwarded_content">
+    <div class="container">
+        <div class="row">
 
-            <button class="form-control btn btn-secondary">Пополнить</button>
-        </form>
+            <div class="col-md-8 offset-md-2">
+                <div class="card card-sh">
+                    <div class="card-header text-center">Пополнение баланса</div>
 
+                    <th:block th:if="${session.succMsg}">
+                        <p class="text-center text-success fs-4" th:text="${session.succMsg}"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-center text-danger fs-4" th:text="${session.errorMsg}"></p>
+                        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <div class="card-body">
+                        <form action="/user/upBalance" method="post">
+                            <input type="hidden" name="usersEWalletId" th:value="${user.eWallet.id}">
+                            <div class="mb-3">
+                                Выберите карту с которой необходимо пополнить баланс кошелька
+                                <select name="methodOfReplenishmentId" class="form-control mb-3">
+                                    <option selected disabled hidden>--Выбрать</option>
+                                    <option th:each="card : ${user.eWallet.methodOfReplenishment}"
+                                            th:text="${card.paymentSystem} + ' ' + ${card.cardNumber}"
+                                            th:value="${card.id}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                Введите сумму пополнения
+                                <input type="number" name="sum" step="0.01" class="form-control mx-auto">
+                            </div>
+                            <button class="form-control btn btn-secondary">Пополнить</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-
-
-
-
 </div>
 </body>
 </html>

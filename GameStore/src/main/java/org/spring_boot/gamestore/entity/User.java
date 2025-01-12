@@ -2,6 +2,8 @@ package org.spring_boot.gamestore.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 public class User {
@@ -13,12 +15,19 @@ public class User {
     private String email;
     private String password;
     private String role;
+    private boolean accountNonLocked;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UsersEWallet_id")
     private UsersEWallet eWallet;
 
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_purchased_games",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
+    private List<Game> purchasedGames;
 
 
 
@@ -70,6 +79,23 @@ public class User {
         this.eWallet = eWallet;
     }
 
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+
+    }
+
+    public List<Game> getPurchasedGames() {
+        return purchasedGames;
+    }
+
+    public void setPurchasedGames(List<Game> purchasedGames) {
+        this.purchasedGames = purchasedGames;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -78,6 +104,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", eWallet=" + eWallet +
                 '}';
     }
 }

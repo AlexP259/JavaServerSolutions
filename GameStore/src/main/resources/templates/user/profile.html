@@ -5,51 +5,62 @@
     <title>Title</title>
 </head>
 <body>
-<div class="text-center" th:fragment="forwarded_content">
-    <h1>Ваш профиль</h1>
+<div th:fragment="forwarded_content">
+    <div class="container text-center">
+        <div class="row">
 
-    <th:block th:if="${session.succMsg}">
-        <p th:text="${session.succMsg}" class="text-success fw-bold text-center mt-4"></p>
-        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
-    </th:block>
+            <div class="col-md-8 offset-md-2">
+                <div class="card card-sh">
 
-    <th:block th:if="${session.errorMsg}">
-        <p th:text="${session.errorMsg}" class="text-danger fw-bold text-center mt-4"></p>
-        <th:block th:text="${@sessionManagementService.removeSessionMessage()}"></th:block>
-    </th:block>
+                    <div class="card-header">
+                        <h1>Ваш профиль</h1>
+                    </div>
 
-    <div class="col-md-6 card-sh m-5 p-5 mx-auto">
-        <h4>Имя: <span th:text="${user.name}"></span></h4>
-        <h4>Email: <span th:text="${user.email}"></span></h4>
-        <h4>Роль: <span th:text="${user.role}"></span></h4>
-        <br>
-        <h4>Кошелек: <span th:text="${user.eWallet}"></span></h4>
-        <!--        <h4>Ваш баланс: <span th:text="${user.balance}"></span></h4>-->
-    </div>
+                    <div class="card-body">
+                        <h4>Имя: <span th:text="${user.name}"></span></h4>
+                        <h4>Email: <span th:text="${user.email}"></span></h4>
+                        <h4>Роль: <span th:text="${user.role}"></span></h4>
+                        <br>
+                        <h4>Кошелек: <span th:text="${user.eWallet}"></span></h4>
+                        <h4>Методы пополнения:
+                            <div th:each="a : ${user.geteWallet().getMethodOfReplenishment()}">
+                                <span th:text="${a.paymentSystem} + ' ' + ${a.validityPeriod}"></span>
+                            </div>
+                        </h4>
 
-    <div class="mb-5">
+                        <div class="m-3">
 
-        <a href="/user/topUpBalance" class="btn btn-secondary">Пополнить баланс</a>
+                            <a href="/user/pageBalance" class="btn btn-secondary">Пополнить баланс</a>
 
-        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Выйти</button>
+                            <a href="/user/chooseMethodsOfReplenishment" class="btn btn-secondary">Методы пополнения</a>
 
-        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-            <div class="offcanvas-header">
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <h2 class="offcanvas-title mx-auto" id="offcanvasTopLabel">
-                    Вы хотите выйти из учетной записи?
-                </h2>
-                <div class="d-flex justify-content-evenly mt-5">
-                    <a th:href="@{/logout}" class="btn btn-success">Да, выйти</a>
-                    <a th:href="@{/user/profile}" class="btn btn-danger">Нет, остаться</a>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                                    aria-controls="offcanvasTop">Выйти
+                            </button>
+
+                            <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+                                <div class="offcanvas-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <h2 class="offcanvas-title mx-auto" id="offcanvasTopLabel">
+                                        Вы хотите выйти из учетной записи?
+                                    </h2>
+                                    <div class="d-flex justify-content-evenly mt-5">
+                                        <a href="/logout" class="btn btn-success">Да, выйти</a>
+                                        <a href="/user/profile" class="btn btn-danger">Нет, остаться</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+
         </div>
-
     </div>
-
 </div>
 </body>
 </html>

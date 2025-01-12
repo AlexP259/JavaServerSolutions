@@ -7,12 +7,15 @@
 <body>
 <div th:fragment="forwarded_content">
 
-    <!--  Блок строки поиска  -->
+    <!--      Блок строки поиска-->
     <div class="container-fluid my-color-gray bg-gradient p-3 search-hidden searchBlock">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <form action="search" method="get">
+                <form action="/" method="get">
                     <div class="input-group">
+                        <input type="hidden" name="genre" th:value="${paramValue}"/>
+                        <input type="hidden" name="platform" th:value="${platformValue}"/>
+                        <input type="hidden" name="pg18" th:value="${pg18Value}"/>
                         <input type="text" class="form-control" name="ch">
                         <button class="btn btn-light text-dark ms-3">Поиск</button>
                     </div>
@@ -21,48 +24,114 @@
         </div>
     </div>
 
+
     <!--контейнер контента-->
     <div class="container-fluid mt-2">
+
         <div class="row">
 
-            <!--  Меню слева  -->
+            <!--  Меню жанров (слева)  -->
             <div class="col-md-2">
-                <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+                <div class="card p-3 mb-5 bg-body-tertiary rounded">
                     <div class="card-body">
-                        <p class="fs-5">По жанрам</p>
-                        <div class="list-group my-div">
+                        <form action="/" method="get">
+                            <input type="hidden" name="ch" th:value="${searchValue}">
+                            <p class="fs-5 fw-bold">По жанрам</p>
+                            <div class="list-group">
+                                <div class="my-div">
+                                    <input type="radio" name="genre" id="all_genres" value="" class="btn-check"
+                                           onchange="updateActive(this)" th:checked="${paramValue == ''}">
+                                    <label for="all_genres" class="list-group-item text-start">Все</label>
+                                </div>
+                                <div th:each="gen:${genres}" class="my-div">
+                                    <input type="radio" th:id="'genre_' + ${gen.name}" name="genre"
+                                           th:value="${gen.name}"
+                                           class="btn-check" th:checked="${paramValue == gen.name}"
+                                           onchange="updateActive(this)">
+                                    <label th:for="'genre_' + ${gen.name}"
+                                           class="list-group-item text-start"
+                                           th:text="${gen.name}">
+                                    </label>
+                                </div>
+                            </div>
 
-                            <a href="/" class="list-group-item list-group-item-action" aria-current="true"
-                               th:classappend="${paramValue == ''} ? 'active' : ''">
-                                Все
-                            </a>
+                            <div class="mt-4">
+                                <p class="fs-5 fw-bold">Платформа</p>
+                                <select name="platform" class="form-control">
+                                    <option value="">Все</option>
+                                    <option th:selected="${platformValue == 'Windows'}">Windows</option>
+                                    <option th:selected="${platformValue == 'Xbox 360'}">Xbox 360</option>
+                                    <option th:selected="${platformValue == 'Xbox One'}">Xbox One</option>
+                                    <option th:selected="${platformValue == 'PlayStation 3'}">PlayStation 3</option>
+                                    <option th:selected="${platformValue == 'PlayStation 4'}">PlayStation 4</option>
+                                    <option th:selected="${platformValue == 'Nintendo Switch'}">Nintendo Switch</option>
+                                </select>
+                            </div>
 
-                            <a th:href="@{'?genre='+${gen.name}}" class="list-group-item list-group-item-action"
-                               th:each="gen:${genres}"
-                               th:text="${gen.name}"
-                               th:classappend="${paramValue == gen.name} ? 'active' : ''"></a>
-
-                        </div>
+                            <div class="mt-4">
+                                <span class="fs-5 fw-bold">18+</span>
+                                <input type="checkbox" name="pg18" class="ml-3"
+                                       value="true" th:checked="${pg18Value}">
+                            </div>
+                            <div class="text-center my-4">
+                                <button class="btn text-light my-color-gray col-md-8 fs-5" type="submit">Фильтр</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <!--   меню справа, сюда выводятся записи об играх  -->
+
+            <!--   меню с играми (справа)  -->
             <div class="col-md-10">
                 <div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                     <div class="card-body">
-                        <p class="fs-3 text-center fw-bold">Каталог игр</p>
+                        <p class="fs-5 text-center fw-bold">Каталог игр</p>
+
                         <div class="row">
-
                             <th:block th:if="${gamesSize > 0}">
-                                <div class="col-md-12 mb-3" th:each="gam:${games}">
-
+                                <div class="col-md-12 mb-3" th:each="gam, iterStat : ${games}">
                                     <div class="card card-sh">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <img th:src="@{'/img/game_img/'+${gam.image}}"
-                                                         class="img-fluid mt-5">
+                                                    <div th:id="'carouselExampleIndicators'+${iterStat.index}"
+                                                         class="carousel slide mt-5">
+                                                        <div class="carousel-indicators">
+                                                            <th:block th:each="img, imgIterStat : ${gam.images}">
+                                                                <button type="button"
+                                                                        th:attr="data-bs-target='#carouselExampleIndicators' + ${iterStat.index},
+                                                                        data-bs-slide-to=${imgIterStat.index},
+                                                                        aria-label='Слайд ' + ${imgIterStat.index + 1}"
+                                                                        th:classappend="${imgIterStat.first} ? 'active' : ''"
+                                                                        th:aria-current="${imgIterStat.index == 0} ? 'true' : 'false'"
+                                                                ></button>
+                                                            </th:block>
+                                                        </div>
+                                                        <div class="carousel-inner">
+                                                            <div th:each="img, imgIterStat : ${gam.images}"
+                                                                 class="carousel-item"
+                                                                 th:classappend="${imgIterStat.first} ? 'active' : ''">
+                                                                <img th:src="@{'/img/game_img/' + ${img}}"
+                                                                     class="d-block w-100">
+                                                            </div>
+                                                        </div>
+                                                        <button class="carousel-control-prev" type="button"
+                                                                th:attr="data-bs-target='#carouselExampleIndicators' + ${iterStat.index}"
+                                                                data-bs-slide="prev">
+                                                            <span class="carousel-control-prev-icon"
+                                                                  aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Previous</span>
+                                                        </button>
+                                                        <button class="carousel-control-next" type="button"
+                                                                th:attr="data-bs-target='#carouselExampleIndicators' + ${iterStat.index}"
+                                                                data-bs-slide="next">
+                                                            <span class="carousel-control-next-icon"
+                                                                  aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Next</span>
+                                                        </button>
+                                                    </div>
+
                                                     <div class="d-flex flex-row justify-content-center mt-3">
                                                         <p class="fs-4 text-center fw-bold mx-2">Цена:</p>
                                                         <p class="fs-4 text-center mx-2" th:text="${gam.price}"></p>
@@ -73,15 +142,33 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <p class="fs-5 text-center fw-bold" th:text="${gam.name}"></p>
-                                                    <p class="fs-5" th:text="${gam.description}"></p>
+                                                    <div>
+                                                        <p class="fs-5 text-center fw-bold"
+                                                           th:text="${gam.name}"></p>
+                                                        <p class="fs-5"
+                                                           th:text="${gam.description.length() > 800 ? #strings.substring(gam.description, 0, 800) + '...' : gam.description}"></p>
+                                                    </div>
+                                                    <div class="d-flex flex-row justify-content-evenly">
+                                                        <div>
+                                                            <p class="fs-5 text-center fw-bold mb-0">Платформа:</p>
+                                                            <p class="fs-5" th:text="${gam.platform}"></p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="fs-5 text-center fw-bold mb-0">Жанр:</p>
+                                                            <p class="fs-5" th:text="${gam.genre}"></p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="fs-5 text-center fw-bold mb-0">Для лиц от
+                                                                18-ти
+                                                                лет:</p>
+                                                            <p class="fs-5"
+                                                               th:text="${gam.pg18} ? 'Да' : 'Нет'"></p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
-
                                 </div>
                             </th:block>
 
@@ -100,36 +187,55 @@
                         <th:block th:if="${totalPages > 1}">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"
-                                           th:href="@{'?pageNo='+${pageNo-1}}"
-                                           th:classappend="${isFirst}?'disabled':''">
-                                            Пред</a>
+
+                                    <!-- Кнопка предыдущая -->
+                                    <li class="page-item" th:classappend="${pageNo == 0} ? 'disabled' : '' ">
+                                        <a class="page-link"
+                                           th:href="@{'?pageNo=' + ${pageNo - 1} +
+                                               '&ch=' + ${searchValue} +
+                                               '&genre=' + ${paramValue} +
+                                               '&platform=' + ${platformValue} +
+                                               '&pg18=' + ${pg18Value}}"
+                                           th:text="'Пред'"
+                                           th:if="${pageNo > 0}"></a>
                                     </li>
 
+                                    <!-- Номера страниц -->
                                     <li class="page-item"
                                         th:each="i : ${#numbers.sequence(1, totalPages)}"
                                         th:classappend="${pageNo + 1 == i} ? 'active' : '' ">
                                         <a class="page-link"
-                                           th:href="@{'?pageNo='+${i-1}}"
+                                           th:href="@{'?pageNo=' + ${i - 1} +
+                                               '&ch=' + ${searchValue} +
+                                               '&genre=' + ${paramValue} +
+                                               '&platform=' + ${platformValue} +
+                                               '&pg18=' + ${pg18Value}}"
                                            th:text="${i}"></a>
                                     </li>
 
-                                    <li class="page-item">
+                                    <!-- Кнопка следующая -->
+                                    <li class="page-item"
+                                        th:classappend="${pageNo + 1 == totalPages} ? 'disabled' : '' ">
                                         <a class="page-link"
-                                           th:href="@{'?pageNo='+${pageNo+1}}"
-                                           th:classappend="${isLast}?'disabled':''">
-                                            След</a>
+                                           th:href="@{'?pageNo=' + ${pageNo + 1} +
+                                               '&ch=' + ${searchValue} +
+                                               '&genre=' + ${paramValue} +
+                                               '&platform=' + ${platformValue} +
+                                               '&pg18=' + ${pg18Value}}"
+                                           th:text="'След'"
+                                           th:if="${pageNo + 1 < totalPages}"></a>
                                     </li>
                                 </ul>
                             </nav>
                         </th:block>
                     </div>
                 </div>
-
             </div>
         </div>
+
     </div>
+
+    <script src="/js/script_add_action_for_choose_genre.js"></script>
 </div>
 </body>
 </html>

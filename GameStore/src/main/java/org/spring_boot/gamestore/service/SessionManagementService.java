@@ -14,6 +14,8 @@ public class SessionManagementService implements ISessionManagementService{
         session.removeAttribute("msg");
         session.removeAttribute("succMsg");
         session.removeAttribute("errorMsg");
+        session.removeAttribute("succMsg2");
+        session.removeAttribute("errorMsg2");
     }
 
 }

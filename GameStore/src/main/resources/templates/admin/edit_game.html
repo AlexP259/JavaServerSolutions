@@ -36,18 +36,38 @@
                                 <textarea name="description" cols="" rows="3" class="form-control">[[${game.description}]]</textarea>
                             </div>
                             <div class="mb-3">
+                                Выберите платформу
+                                <select name="platform" class="form-control" required id="platformSelect">
+                                    <option>[[${game.platform}]]</option>
+                                    <option>Windows</option>
+                                    <option>PlayStation 3</option>
+                                    <option>PlayStation 4</option>
+                                    <option>Xbox 360</option>
+                                    <option>Xbox One</option>
+                                    <option>Nintendo Switch</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 Жанр
                                 <select name="genre" class="form-control">
                                     <option>[[${game.genre}]]</option>
                                     <option th:each="g:${genres}" th:text="${g.name}"></option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                Загрузить изображение
-                                <input type="file" name="file" class="form-control">
+                            <div class="mb-3" id="systemRequirementsDiv">
+                                Введите системные требования
+                                <textarea name="systemRequirements" id="systemRequir" cols="" rows="3" class="form-control">[[${game.systemRequirements}]]</textarea>
                             </div>
                             <div class="mb-3">
-                                <img th:src="@{'/img/game_img/'+${game.image}}" alt="" width="200">
+                                Игра с возрастным ограничением PG-18
+                                <input type="checkbox" name="pg18" th:checked="${game.pg18}">
+                            </div>
+                            <div class="mb-3">
+                                Загрузить изображения
+                                <input type="file" name="files[]" class="form-control" multiple>
+                            </div>
+                            <div class="mb-3" th:each="img : ${game.images}">
+                                <img th:src="@{'/img/game_img/'+${img}}" alt="" width="200">
                             </div>
                             <div class="mb-3">
                                 Введите цену
@@ -61,6 +81,8 @@
             </div>
         </div>
     </div>
+
+    <script src="/js/script_for_add_edit_game.js"></script>
 </div>
 </body>
 </html>
